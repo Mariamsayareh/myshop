@@ -5,6 +5,11 @@ import Cart from "./pages/Cart/Cart.jsx";
 import AuthLayout from "./Layout/AuthLayout.jsx";
 import Login from "./pages/Login/login.jsx";
 import Register from "./pages/Register/Register.jsx";
+import Shop from "./pages/Shop/Shop.jsx";
+import Collection from "./pages/Collection/Collection.jsx";
+import Necklaces from "./pages/Necklaces/Necklaces.jsx";
+import More from "./pages/More/More.jsx";
+import Contact from "./pages/Contact/Contact.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -17,6 +22,34 @@ const router = createBrowserRouter([
         {
             path:'cart',
             element:<Cart/>
+        },
+        {
+            path:'shop',
+            element:<Shop/>
+        },
+        {
+            path:'collection',
+            element:<Collection/>
+        },
+        {
+            path:'necklaces',
+            element:<Necklaces/>
+        },
+        {
+            path:'contact',
+            element:<Contact/>
+        },
+        {
+            path:'more',
+            element:<More/>
+        },
+        {
+        path:'log in',
+        element:<Login/>
+        },
+        {
+          path:'register',
+          element:<Register/>
         }
     ]
   },
@@ -24,14 +57,7 @@ const router = createBrowserRouter([
     path:"/auth",
     element:<AuthLayout/>,
     children:[
-      {
-        path:'login',
-        element:<Login/>
-      },
-      {
-        path:'register',
-        element:<Register/>
-      }
+      
     ]
   },
 ]);
