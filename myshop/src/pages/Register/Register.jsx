@@ -36,13 +36,18 @@ const Register = () => {
             <TextField label="Full Name" {...register("fullName")} fullWidth />
             <TextField label="Password" type="password" {...register("password")} fullWidth/>
             <TextField label="Phone Number" {...register("phoneNumber")} fullWidth />
-            <Button variant="contained" type="submit" sx={{ width: 100, p: 1 , backgroundColor:"#ce967e",
-            "&:hover": { 
-                backgroundColor: "#090b0d", transform: "scale(1.05)", 
-            },transition: "0.3s" }}>
-              Register
+            <Button variant="contained" type="submit" sx={{ p: 1 , backgroundColor:"#ce967e",
+                "&:hover": { 
+                    backgroundColor: "#090b0d", transform: "scale(1.05)", 
+                },transition: "0.3s" }} fullWidth>
+                    Register
             </Button>
-            <Link component={Links} to='/home'  color='inherit'>Return to store</Link>
+            <Link component={Links} to='/home'  color='inherit' sx={{
+                "&:hover": { 
+                    color: "#ce967e", transform: "scale(1.05)",textDecoration: "none"
+                    },transition: "0.3s" }}>
+                 Return to store
+            </Link>
           </Box>
         </CardContent>
       </Card>
