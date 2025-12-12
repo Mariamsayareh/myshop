@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Button, TextField, Typography, Card, CardContent, Link } from "@mui/material";
 import { Link as Links } from 'react-router-dom';
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import {Registerschema} from '../../Validation/Registerschema.js';
+import ErrorIcon from '@mui/icons-material/Error';
+import IconButton from '@mui/material/IconButton';
 
 const Register = () => {
+  const [serverErrors, setServerErrors] = useState([]);
   const { register, handleSubmit ,formState:{errors}} = useForm({
     resolver:yupResolver(Registerschema),
     mode:'onBlur'
@@ -17,9 +20,10 @@ const Register = () => {
       const response = await axios.post("https://knowledgeshop.runasp.net/api/Auth/Account/Register",values);
       console.log(response.data);
       alert("Registration successful!");
-    } catch (error) {
-      console.log(error);
-      alert("Registration failed");
+    } catch (err) {
+      console.log(err);
+      setServerErrors(err.response?.data?.errors[0]|| []);
+      //alert("Registration failed");
     }
   };
 
@@ -30,6 +34,35 @@ const Register = () => {
           <Typography variant="h4" textAlign="center" mb={3} sx={{fontWeight: "bold"}}>
             Create Account
           </Typography>
+          {serverErrors?.length > 0 &&
+            (Array.isArray(serverErrors) ? serverErrors : [serverErrors]).map((err, i) => (
+              <Box key={i} sx={{ display: "flex", flexDirection:"column", gap: 1, color: "red" }}>
+                <Box sx={{ display: "flex"}}>
+                <ErrorIcon sx={{ fontSize: "30px" }} />
+                <Typography variant="h6" sx={{fontWeight: "bold" , color:"#000" }}>Please adjust the following:</Typography>
+                </Box>
+                <Typography component="p" variant="body" sx={{ color:"#000" , mb:2}}>
+                  This email address is already associated with an account. 
+                  If this account is yours, you can 
+                  <Link component={Links} to='/log in'  color='inherit' sx={{
+                   "&:hover": { 
+                    color: "#ce967e", transform: "scale(1.05)",textDecoration: "none"
+                    },transition: "0.3s" }}>
+                      Login your account
+                  </Link>,
+                  or you can 
+                  <Link component={Links} to='/reset'  color='inherit'sx={{
+                "&:hover": { 
+                    color: "#ce967e", transform: "scale(1.05)",textDecoration: "none"
+                    },transition: "0.3s" }}>
+                  reset your password
+                  </Link>
+                  </Typography>
+              </Box>
+            ))
+          }
+
+
 
           <Box
             component="form"
