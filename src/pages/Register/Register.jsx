@@ -3,9 +3,14 @@ import { Box, Button, TextField, Typography, Card, CardContent, Link } from "@mu
 import { Link as Links } from 'react-router-dom';
 import axios from "axios";
 import { useForm } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
+import {Registerschema} from '../../Validation/Registerschema.js';
 
 const Register = () => {
-  const { register, handleSubmit } = useForm({});
+  const { register, handleSubmit ,formState:{errors}} = useForm({
+    resolver:yupResolver(Registerschema),
+    mode:'onBlur'
+  });
 
   const registerForm = async (values) => {
     try {
@@ -13,7 +18,7 @@ const Register = () => {
       console.log(response.data);
       alert("Registration successful!");
     } catch (error) {
-      console.error(error);
+      console.log(error);
       alert("Registration failed");
     }
   };
@@ -31,11 +36,21 @@ const Register = () => {
             onSubmit={handleSubmit(registerForm)}
             sx={{ display: "flex", flexDirection: "column", alignItems:"center", gap: 3 }}
           >
-            <TextField label="User Name" {...register("userName")} fullWidth />
-            <TextField label="Email" {...register("email")} fullWidth />
-            <TextField label="Full Name" {...register("fullName")} fullWidth />
-            <TextField label="Password" type="password" {...register("password")} fullWidth/>
-            <TextField label="Phone Number" {...register("phoneNumber")} fullWidth />
+            <TextField label="User Name" {...register("userName")} fullWidth 
+            error={errors.userName} helperText={errors.userName?.message}
+            />
+            <TextField label="Full Name" {...register("fullName")} fullWidth 
+            error={errors.fullName} helperText={errors.fullName?.message}
+            />
+            <TextField label="Email" {...register("email")} fullWidth 
+            error={errors.email} helperText={errors.email?.message}
+            />
+            <TextField label="Password" type="password" {...register("password")} fullWidth 
+            error={errors.password} helperText={errors.password?.message}
+            />
+            <TextField label="Phone Number" {...register("phoneNumber")} fullWidth 
+            error={errors.phoneNumber} helperText={errors.phoneNumber?.message}
+            />
             <Button variant="contained" type="submit" sx={{ p: 1 , backgroundColor:"#ce967e",
                 "&:hover": { 
                     backgroundColor: "#090b0d", transform: "scale(1.05)", 
