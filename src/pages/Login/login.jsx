@@ -6,8 +6,12 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import {LoginSchema} from '../../Validation/loginSchema.js';
 import ErrorIcon from '@mui/icons-material/Error';
+import { useLocation } from "react-router-dom";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 const Login = () => {
+    const location = useLocation();
+  const message = location.state?.message || "";
     const [serverErrors, setServerErrors] = useState([]);
     const { register, handleSubmit ,formState:{errors}} = useForm({
         resolver:yupResolver(LoginSchema),
@@ -36,6 +40,19 @@ const Login = () => {
                     <Typography variant="h4" textAlign="center" mb={3} sx={{fontWeight: "bold"}}>
                         Log in to your account
                     </Typography>
+                    {message && (
+                        <Box
+                        sx={{
+                            display: "flex",
+                            alignItems: "center",
+                            mb: 2,
+                            
+                        }}
+                        >
+                        <CheckCircleIcon sx={{ color: "#4caf50", mr: 1 }} />
+                        <Typography component="p" sx={{ color: "#000" }}>{message}</Typography>
+                        </Box>
+                    )}
                     {serverErrors?.length > 0 &&
                         (Array.isArray(serverErrors) ? serverErrors : [serverErrors]).map((err, i) => (
                         <Box key={i} sx={{ display: "flex", flexDirection:"column", gap: 1, color: "red" }}>
