@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Box, Button, TextField, Typography, Card, CardContent, Link } from "@mui/material";
 import { Link as Links } from 'react-router-dom';
-import axios from "axios";
+import axiosInstance from "../../Api/axiosInstance.js";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import {Registerschema} from '../../Validation/Registerschema.js';
@@ -17,7 +17,7 @@ const Register = () => {
 
   const registerForm = async (values) => {
     try {
-      const response = await axios.post("https://knowledgeshop.runasp.net/api/Auth/Account/Register",values);
+      const response = await axiosInstance.post("/Auth/Account/Register",values);
       console.log(response.data);
       alert("Registration successful!");
     } catch (err) {
@@ -51,10 +51,7 @@ const Register = () => {
                       Login your account
                   </Link>,
                   or you can 
-                  <Link component={Links} to='/reset'  color='inherit'sx={{
-                "&:hover": { 
-                    color: "#ce967e", transform: "scale(1.05)",textDecoration: "none"
-                    },transition: "0.3s" }}>
+                  <Link component={Links} to='/reset'  color='inherit'>
                   reset your password
                   </Link>
                   </Typography>

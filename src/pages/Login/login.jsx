@@ -1,7 +1,7 @@
 import React ,{ useState } from 'react';
 import { Box, Button, TextField, Typography, Card, CardContent, Link } from "@mui/material";
 import { Link as Links } from 'react-router-dom';
-import axios from "axios";
+import axiosInstance from "../../Api/axiosInstance.js";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import {LoginSchema} from '../../Validation/loginSchema.js';
@@ -19,7 +19,7 @@ const Login = () => {
       });
       const loginForm = async (values) => {
         try {
-          const response = await axios.post("https://knowledgeshop.runasp.net/api/Auth/Account/Login",values);
+          const response = await axiosInstance.post("/Auth/Account/Login",values);
           console.log(response.data);
           alert("Registration successful!");
         } catch (error) {
