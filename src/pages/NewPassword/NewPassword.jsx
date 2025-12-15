@@ -6,7 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { NewpasswordSchema } from "../../Validation/NewpasswordSchema.js";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import ErrorIcon from "@mui/icons-material/Error";
-import axios from "axios";
+import axiosInstance from "../../Api/axiosInstance.js";
 
 const NewPassword = () => {
   const navigate = useNavigate();
@@ -24,8 +24,7 @@ const NewPassword = () => {
   const newpassForm = async (values) => {
     setServerErrors([]);
     try {
-      await axios.patch(
-        "https://knowledgeshop.runasp.net/api/Auth/Account/ResetPassword",
+      await axiosInstance.patch("/Auth/Account/ResetPassword",
         values
       );
 
