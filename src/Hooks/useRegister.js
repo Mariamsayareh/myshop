@@ -14,11 +14,9 @@ export default function useRegister() {
             navigate('/log in');
         },
         onError: (err) => {
+            setServerErrors(err.response.data.errors || []);
 
-            setServerErrors(err.response.data.errors.flat() || []);
         }
-
-
     });
     return { serverErrors, registerMutation }
 
