@@ -1,35 +1,47 @@
-import React ,{ useState } from 'react';
+import React ,{ useContext, useState } from 'react';
 import { Box, Button, TextField, Typography, Card, CardContent, Link } from "@mui/material";
-import { Link as Links } from 'react-router-dom';
+import { Link as Links, useNavigate } from 'react-router-dom';
 import axiosInstance from "../../Api/axiosInstance.js";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import {LoginSchema} from '../../Validation/loginSchema.js';
 import ErrorIcon from '@mui/icons-material/Error';
-import { useLocation } from "react-router-dom";
+import { useLocation} from "react-router-dom";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-
+import { AuthContext } from '../../Context/AuthContext.jsx';
+import { useLogin } from '../../Hooks/useLogin.js';
 const Login = () => {
     const location = useLocation();
+    // const navigate = useNavigate();
+    // const {setToken ,setAccessToken}=useContext(AuthContext);
   const message = location.state?.message || "";
-    const [serverErrors, setServerErrors] = useState([]);
+    // const [serverErrors, setServerErrors] = useState([]);
     const { register, handleSubmit ,formState:{errors}} = useForm({
         resolver:yupResolver(LoginSchema),
         mode:'onBlur'
       });
+      const {  loginMutation, serverErrors } = useLogin();
+
       const loginForm = async (values) => {
-        try {
-          const response = await axiosInstance.post("/Auth/Account/Login",values);
-          console.log(response.data);
-          alert("Registration successful!");
-        } catch (error) {
-          console.log("ERROR RESPONSE:", error.response);
-          console.log("ERROR DATA:", error.response?.data);
-          console.log("ERROR DATA:", error.response?.data.message);
-          setServerErrors(error.response?.data?.message || []);
+         loginMutation.mutate(values);
+        // try {
+        //   const response = await axiosInstance.post("/Auth/Account/Login",values);
+        //   if(response.status===200){
+        //     console.log(response.data);
+        //     setToken(response.data.accessToken);
+        //     setAccessToken(response.data.accessToken);
+        //     navigate('/home');
+
+        //   }
+        //    alert("Registration successful!");
+        // } catch (error) {
+        //   console.log("ERROR RESPONSE:", error.response);
+        //   console.log("ERROR DATA:", error.response?.data);
+        //   console.log("ERROR DATA:", error.response?.data.message);
+        //   setServerErrors(error.response?.data?.message || []);
           
-          //alert(error.response?.data || "Login failed");
-        }
+        //   //alert(error.response?.data || "Login failed");
+        // }
       };
     
       return (
