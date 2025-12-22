@@ -1,30 +1,36 @@
-import React, { useState } from "react";
+import React from "react";
 import { Box, Button, TextField, Typography, Card, CardContent, Link } from "@mui/material";
-import { Link as Links } from 'react-router-dom';
-import axiosInstance from "../../Api/axiosInstance.js";
+import { Link as Links,  } from 'react-router-dom';
+
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import {Registerschema} from '../../Validation/Registerschema.js';
 import ErrorIcon from '@mui/icons-material/Error';
 import IconButton from '@mui/material/IconButton';
+import useRegister from "../../Hooks/useRegister.js";
 
 const Register = () => {
-  const [serverErrors, setServerErrors] = useState([]);
+  
   const { register, handleSubmit ,formState:{errors}} = useForm({
     resolver:yupResolver(Registerschema),
     mode:'onBlur'
   });
 
+  const {registerMutation, serverErrors} =useRegister();
+
+  
+
   const registerForm = async (values) => {
-    try {
-      const response = await axiosInstance.post("/Auth/Account/Register",values);
-      console.log(response.data);
-      alert("Registration successful!");
-    } catch (err) {
-      console.log(err);
-      setServerErrors(err.response?.data?.errors[0]|| []);
-      //alert("Registration failed");
-    }
+    // try {
+    //   const response = await axiosInstance.post("/Auth/Account/Register",values);
+    //   console.log(response.data);
+    //   alert("Registration successful!");
+    // } catch (err) {
+    //   console.log(err);
+    //   setServerErrors(err.response?.data?.errors[0]|| []);
+    //   //alert("Registration failed");
+    // }
+    await registerMutation.mutateAsync(values)
   };
 
   return (
@@ -34,8 +40,7 @@ const Register = () => {
           <Typography variant="h4" textAlign="center" mb={3} sx={{fontWeight: "bold"}}>
             Create Account
           </Typography>
-          {serverErrors?.length > 0 &&
-            (Array.isArray(serverErrors) ? serverErrors : [serverErrors]).map((err, i) => (
+          { serverErrors.map(( i) => (
               <Box key={i} sx={{ display: "flex", flexDirection:"column", gap: 1, color: "red" }}>
                 <Box sx={{ display: "flex"}}>
                 <ErrorIcon sx={{ fontSize: "30px" }} />
@@ -56,6 +61,7 @@ const Register = () => {
                   </Link>
                   </Typography>
               </Box>
+              
             ))
           }
 
