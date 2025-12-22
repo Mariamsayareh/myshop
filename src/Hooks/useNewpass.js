@@ -10,7 +10,7 @@ export const useNewpass = () => {
 
     const newpassMutation = useMutation({
         mutationFn: async(values) => {
-            await axiosInstance.post("/Auth/Account/Login", values).then(res => res.data);
+            await axiosInstance.patch("/Auth/Account/ResetPassword", values).then(res => res.data);
 
         },
         onSuccess: (data) => {
@@ -26,9 +26,9 @@ export const useNewpass = () => {
         onError: (error) => {
             console.log(error.response);
             setServerErrors(
-                error.response.data.title ?
-                Array.isArray(error.response.data.title) ?
-                error.response.data.title : [error.response.data.title] : ["Something went wrong. Please try again."]
+                error.response.data.message ?
+                Array.isArray(error.response.data.message) ?
+                error.response.data.message : [error.response.data.message] : ["Something went wrong. Please try again."]
             );
         }
     });
