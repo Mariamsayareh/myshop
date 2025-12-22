@@ -6,10 +6,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { ResetSchema } from "../../Validation/ReserSchema";
 import ErrorIcon from "@mui/icons-material/Error";
+import { useReset } from "../../Hooks/useReset.js";
 
 const Reset = () => {
-  const [serverErrors, setServerErrors] = useState([]);
-  const navigate = useNavigate();
+  //const [serverErrors, setServerErrors] = useState([]);
+  //const navigate = useNavigate();
 
   const form = useForm({
   resolver: yupResolver(ResetSchema),
@@ -19,18 +20,21 @@ const Reset = () => {
     const { register, handleSubmit } = form;
     const errors = form.formState?.errors || {};
 
+    const {resetMutation, serverErrors} =useReset();
+
   const resetForm = async (values) => {
-    try {
-      const response =await axiosInstance.post("/Auth/Account/SendCode",values);
-      console.log(response.data);
-      localStorage.setItem("resetEmail", values.email);
-      navigate("/new-password");
-    } catch (error) {
-            console.log("ERROR RESPONSE:", error.response);
-            console.log("ERROR DATA:", error.response?.data);
-            console.log("ERROR DATA:", error.response?.data.message);
-      setServerErrors(error.response?.data?.message || "Something went wrong");
-    }
+    await resetMutation.mutateAsync(values)
+    // try {
+    //   const response =await axiosInstance.post("/Auth/Account/SendCode",values);
+    //   console.log(response.data);
+    //   localStorage.setItem("resetEmail", values.email);
+    //   navigate("/new-password");
+    // } catch (error) {
+    //         console.log("ERROR RESPONSE:", error.response);
+    //         console.log("ERROR DATA:", error.response?.data);
+    //         console.log("ERROR DATA:", error.response?.data.message);
+    //   setServerErrors(error.response?.data?.message || "Something went wrong");
+    // }
   };
 
   return (
