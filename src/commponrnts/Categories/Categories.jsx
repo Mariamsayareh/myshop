@@ -22,7 +22,7 @@ const Categories = () => {
       </Typography>
       <Container maxWidth='lg'>
         <Grid container spacing={4}>
-          {data.map(category => (
+          {data?.map?.(category => (
             <Grid 
               key={category.id} 
               item xs={12} sm={6} md={4} lg={3} 
