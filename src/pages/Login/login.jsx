@@ -1,4 +1,4 @@
-import React ,{ useContext, useState } from 'react';
+import React ,{ useState } from 'react';
 import { Box, Button, TextField, Typography, Card, CardContent, Link } from "@mui/material";
 import { Link as Links, useNavigate } from 'react-router-dom';
 import axiosInstance from "../../Api/axiosInstance.js";
@@ -8,12 +8,12 @@ import {LoginSchema} from '../../Validation/loginSchema.js';
 import ErrorIcon from '@mui/icons-material/Error';
 import { useLocation} from "react-router-dom";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import { AuthContext } from '../../Context/AuthContext.jsx';
+
 import { useLogin } from '../../Hooks/useLogin.js';
 const Login = () => {
     const location = useLocation();
-    // const navigate = useNavigate();
-    // const {setToken ,setAccessToken}=useContext(AuthContext);
+     //const navigate = useNavigate();
+    
   const message = location.state?.message || "";
     // const [serverErrors, setServerErrors] = useState([]);
     const { register, handleSubmit ,formState:{errors}} = useForm({

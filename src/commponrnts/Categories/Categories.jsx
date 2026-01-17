@@ -5,7 +5,7 @@ import { useCategories } from '../../Hooks/useCategories';
 
 const Categories = () => {
     const {isLoading,isError,data}=useCategories();
-
+console.log(data);
   if (isLoading) return (
     <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '50vh', gap: 2 }}>
       <CircularProgress color="primary" />
@@ -22,7 +22,7 @@ const Categories = () => {
       </Typography>
       <Container maxWidth='lg'>
         <Grid container spacing={4}>
-          {data?.map?.(category => (
+          {data?.response.map?.(category => (
             <Grid 
               key={category.id} 
               item xs={12} sm={6} md={4} lg={3} 

@@ -10,21 +10,23 @@ export const useReset = () => {
 
     const resetMutation = useMutation({
         mutationFn: async(values) => {
-            await axiosInstance.post("/Auth/Account/SendCode", values).then(res => res.data);
+            const res = await axiosInstance.post("/auth/Account/SendCode", values);
+            return res.data;
 
         },
-        onSuccess: () => {
+        onSuccess: (values) => {
             localStorage.setItem("resetEmail", values.email);
             navigate("/new-password");
-
+            console.log("onSuccess");
         },
         onError: (error) => {
-            console.log(error.response);
-            setServerErrors(
-                error.response.data.message ?
-                Array.isArray(error.response.data.message) ?
-                error.response.data.message : [error.response.data.message] : ["Something went wrong. Please try again."]
-            );
+            console.log(error);
+            console.log("error");
+            // setServerErrors(
+            //     error.response.data.message ?
+            //     Array.isArray(error.response.data.message) ?
+            //     error.response.data.message : [error.response.data.message] : ["Something went wrong. Please try again."]
+            // );
         }
     });
 

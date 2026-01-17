@@ -6,12 +6,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { NewpasswordSchema } from "../../Validation/NewpasswordSchema.js";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import ErrorIcon from "@mui/icons-material/Error";
-import axiosInstance from "../../Api/axiosInstance.js";
+
 import { useNewpass } from "../../Hooks/useNewpass.js";
 
 const NewPassword = () => {
-  //const navigate = useNavigate();
-  //const [serverErrors, setServerErrors] = useState([]);
+  
   const [successMessage, setSuccessMessage] = useState("");
 
   const form = useForm({
@@ -25,28 +24,7 @@ const NewPassword = () => {
   const {  newpassMutation, serverErrors } = useNewpass();
 
   const newpassForm = async (values) => {
-     await newpassMutation.mutate(values);
-    // setServerErrors([]);
-    // try {
-    //   await axiosInstance.patch("/Auth/Account/ResetPassword",
-    //     values
-    //   );
-
-    //   navigate("/log in", {
-    //   state: {
-    //     message: "Change your password successfully.",
-    //   },
-    // });
-    // } catch (error) {
-    //   console.log("ERROR RESPONSE:", error.response);
-    //   setServerErrors(
-    //     error.response?.data?.title
-    //       ? Array.isArray(error.response.data.title)
-    //         ? error.response.data.title
-    //         : [error.response.data.title]
-    //       : ["Something went wrong. Please try again."]
-    //   );
-    // }
+      await newpassMutation.mutateAsync(values);
   };
 
   return (

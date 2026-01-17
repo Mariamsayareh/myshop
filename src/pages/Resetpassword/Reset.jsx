@@ -22,8 +22,8 @@ const Reset = () => {
 
     const {resetMutation, serverErrors} =useReset();
 
-  const resetForm = async (values) => {
-    await resetMutation.mutateAsync(values)
+  const resetForm =  (values) => {
+     resetMutation.mutateAsync(values)
     // try {
     //   const response =await axiosInstance.post("/Auth/Account/SendCode",values);
     //   console.log(response.data);

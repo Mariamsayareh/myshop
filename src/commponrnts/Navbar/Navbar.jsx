@@ -1,4 +1,4 @@
-import  react ,{useContext ,useState } from 'react';
+import  react ,{useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -18,8 +18,8 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { Link as Links } from 'react-router-dom';
-import { AuthContext } from '../../Context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import useAuthStore from '../../stor/authStore';
 
 const pages = [
   { name: 'Home' },
@@ -38,7 +38,10 @@ const pages = [
 ];
 
 export default function Navbar() {
-  const { token , logout} = useContext(AuthContext);
+  
+  const {token} = useAuthStore(state=>state);
+  const logout=useAuthStore(state=>state.logout)
+  console.log(`ddd: ${token} `);
   const navigate=useNavigate('');
   const handleLogout=()=>{
     logout();
