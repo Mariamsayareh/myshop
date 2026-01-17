@@ -204,7 +204,14 @@ export default function Navbar() {
 
             {token && (
               <IconButton color="inherit">
-                <ShoppingCartIcon />
+                <Link
+                      component={Links}
+                      to="/cart"
+                      underline="none"
+                      color="inherit"
+                    >
+                      <ShoppingCartIcon />
+                    </Link>
               </IconButton>
             )}
 

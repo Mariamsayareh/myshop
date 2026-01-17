@@ -13,6 +13,7 @@ import Contact from "./pages/Contact/Contact.jsx";
 import Resetpassword from "./pages/Resetpassword/Reset.jsx";
 import NewPassword from "./pages/NewPassword/NewPassword.jsx";
 import CartDrawer from "./commponrnts/CartDrawer/CartDrawer.jsx";
+import ProtectedRouter from "../protectedRouter.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -23,8 +24,11 @@ const router = createBrowserRouter([
             element:<Home/>
         },
         {
-            path:'cart',
-            element:<Cart/>
+          path:'cart',
+            element:
+            <ProtectedRouter>
+              <Cart/>
+            </ProtectedRouter>
         },
         {
             path:'shop',
