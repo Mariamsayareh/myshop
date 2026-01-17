@@ -40,7 +40,8 @@ const pages = [
 export default function Navbar() {
   
   const {token} = useAuthStore(state=>state);
-  const logout=useAuthStore(state=>state.logout)
+  const logout=useAuthStore(state=>state.logout);
+  const user=useAuthStore(state=>state.user);
   console.log(`ddd: ${token} `);
   const navigate=useNavigate('');
   const handleLogout=()=>{
@@ -92,6 +93,9 @@ export default function Navbar() {
             <Link component={Links} to="/home" underline="none" color="inherit">
               JUBILEE
             </Link>
+          </Typography>
+          <Typography variant="h6" sx={{ fontWeight: 700 }}>
+            Welcome {user?.name}
           </Typography>
 
           {/* Desktop Menu */}
