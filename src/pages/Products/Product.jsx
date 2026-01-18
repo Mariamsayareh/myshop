@@ -2,10 +2,12 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import UseProduct from '../../Hooks/useProduct';
 import { Box, Button, Card, CardContent, CardMedia, CircularProgress, Grid, Rating, Typography } from '@mui/material';
+import UseAddToCart from '../../Hooks/useAddToCart';
 
 const Product = () => {
     const {id}=useParams();
     const {data ,isLoading ,isError}=UseProduct(id);
+    const {mutate :addToCart ,isPending :isAddingToCart}=UseAddToCart();
     console.log(data?.response);
     const product = data?.response;
     if(isLoading) return <CircularProgress></CircularProgress>
@@ -38,7 +40,10 @@ const Product = () => {
                         <Typography>
                             Available Quantity : {product.quantity}
                         </Typography>
-                        <Button variant='contained' sx={{backgroundColor: "#ce967e"}} >Add to Cart</Button>
+                        <Button variant='contained' sx={{backgroundColor: "#ce967e"}} 
+                            onClick={()=>addToCart({ProductId:product.id ,Count:1})}
+                            disabled={isAddingToCart}
+                        >Add to Cart</Button>
                     </Grid>
                 </Grid>
                 <Box mt={3} px={5}>
