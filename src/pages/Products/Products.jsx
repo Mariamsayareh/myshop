@@ -1,5 +1,6 @@
 import { useProducts } from '../../Hooks/useProducts';
 import { Box, Card, CardContent, CardMedia, CircularProgress, Grid, Typography } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 export default function Products() {
     const { isLoading, isError, data } = useProducts();
@@ -13,20 +14,22 @@ export default function Products() {
             <Grid container spacing={2}>
                 {data.response.data.map((product) =>
                     <Grid item size={{ xs: 12, sm:6, md:5, lg:3 }}>
-                        <Card>
-                            <CardMedia
-                                component="img"
-                                image={product.image}
-                                alt={product.title}
-                                sx={{height:200, objectFit:"contain"}}
-                            />
-                            <CardContent>
-                                <Typography component={'h3'}>{product.name}</Typography>
-                                <Typography component={'span'} variant='body1'>
-                                    {product.price}$
-                                </Typography>
-                            </CardContent>
-                        </Card>
+                        <Link to={`/product/${product.id}`} style={{ textDecoration: 'none' }}>
+                            <Card>
+                                <CardMedia
+                                    component="img"
+                                    image={product.image}
+                                    alt={product.title}
+                                    sx={{height:200, objectFit:"contain"}}
+                                />
+                                <CardContent>
+                                    <Typography component={'h3'}>{product.name}</Typography>
+                                    <Typography component={'span'} variant='body1'>
+                                        {product.price}$
+                                    </Typography>
+                                </CardContent>
+                            </Card>
+                        </Link>
                     </Grid>
                 )}
             </Grid>

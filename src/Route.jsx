@@ -14,6 +14,7 @@ import Resetpassword from "./pages/Resetpassword/Reset.jsx";
 import NewPassword from "./pages/NewPassword/NewPassword.jsx";
 import CartDrawer from "./commponrnts/CartDrawer/CartDrawer.jsx";
 import ProtectedRouter from "../protectedRouter.jsx";
+import Product from "./pages/Products/Product.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -69,6 +70,9 @@ const router = createBrowserRouter([
         {
           path:'cart-drawer',
           element:<CartDrawer/>
+        },{
+          path:'product/:id',
+          element:<Product/>
         }
     ]
   },
