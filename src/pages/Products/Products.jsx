@@ -11,7 +11,7 @@ export default function Products() {
         <Box p={3}>
             <Typography component={'h2'} variant='h4'  textAlign="center" sx={{ mb: 4 }}>Products</Typography>
             <Grid container spacing={2}>
-                {data.map((product) =>
+                {data.response.data.map((product) =>
                     <Grid item size={{ xs: 12, sm:6, md:5, lg:3 }}>
                         <Card>
                             <CardMedia

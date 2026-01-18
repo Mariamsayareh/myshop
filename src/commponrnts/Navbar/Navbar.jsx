@@ -82,7 +82,14 @@ export default function Navbar() {
             >
               {pages.map((page) => (
                 <MenuItem key={page.name} onClick={handleCloseNavMenu}>
-                  {page.name}
+                  <Link
+                      component={Links}
+                      to={`/${page.name.toLowerCase()}`}
+                      underline="none"
+                      color="inherit"
+                    >
+                      {page.name}
+                    </Link>
                 </MenuItem>
               ))}
             </Menu>
