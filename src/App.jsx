@@ -1,6 +1,7 @@
 
 import { RouterProvider } from "react-router-dom";
 import router  from './Route.jsx';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 export default function App() {
@@ -8,7 +9,7 @@ export default function App() {
   return (
     <>
       <QueryClientProvider client={queryClient}>
-        
+        <ReactQueryDevtools initialIsOpen={false} />
           <RouterProvider router={router} />
         
       

@@ -17,11 +17,11 @@ export const useReset = () => {
         onSuccess: (values) => {
             localStorage.setItem("resetEmail", values.email);
             navigate("/new-password");
-            console.log("onSuccess");
+            //console.log("onSuccess");
         },
         onError: (error) => {
-            console.log(error);
-            console.log("error");
+            //console.log(error);
+            //console.log("error");
             // setServerErrors(
             //     error.response.data.message ?
             //     Array.isArray(error.response.data.message) ?

@@ -15,16 +15,16 @@ export const useNewpass = () => {
 
         },
         onSuccess: (data) => {
-            console.log("accessToken");
+            //console.log("accessToken");
             //setToken(data.accessToken);
-            console.log(data);
+            //console.log(data);
             //setAccessToken(data.accessToken);
             navigate("/log in", {
                 state: {
                     message: "Change your password successfully.",
                 },
             });
-            console.log("onSuccess2");
+            //console.log("onSuccess2");
 
         },
         onError: (error) => {

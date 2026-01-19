@@ -27,19 +27,19 @@ export const useLogin = () => {
 
             setToken(data.accessToken);
             setUser(user);
-            console.log('jjjj', user)
-            console.log(data.accessToken)
-            console.log("Stored user:", localStorage.getItem("user"));
-            console.log("Stored token:", localStorage.getItem("token"));
+            // console.log('jjjj', user)
+            // console.log(data.accessToken)
+            // console.log("Stored user:", localStorage.getItem("user"));
+            // console.log("Stored token:", localStorage.getItem("token"));
 
             navigate('/home');
 
         },
         onError: (error) => {
-            console.log('error')
+            //console.log('error')
             const messages = error.response.data.message || ["Login failed"];
             setServerErrors(Array.isArray(messages) ? messages : [messages]);
-            console.log(Array.isArray(messages) ? messages : [messages]);
+            //console.log(Array.isArray(messages) ? messages : [messages]);
         }
     });
 

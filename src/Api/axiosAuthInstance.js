@@ -7,7 +7,8 @@ const axiosAuthInstance = axios.create({
 axiosAuthInstance.interceptors.request.use((config) => {
     const { token } = useAuthStore.getState();
     config.headers["Accept-Language"] = "en";
-    config.headers["Authorization"] = `Bearer ${ token }`;
+    const dnn = config.headers["Authorization"] = `Bearer ${ token }`;
+    console.log(dnn);
     return config; //بحمل كل معلومات الريكوست
 })
 export default axiosAuthInstance;

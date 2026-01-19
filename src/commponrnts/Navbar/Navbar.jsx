@@ -42,7 +42,7 @@ export default function Navbar() {
   const {token} = useAuthStore(state=>state);
   const logout=useAuthStore(state=>state.logout);
   const user=useAuthStore(state=>state.user);
-  console.log(`ddd: ${token} `);
+  //console.log(`ddd: ${token} `);
   const navigate=useNavigate('');
   const handleLogout=()=>{
     logout();

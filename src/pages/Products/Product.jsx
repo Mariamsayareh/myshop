@@ -8,7 +8,7 @@ const Product = () => {
     const {id}=useParams();
     const {data ,isLoading ,isError}=UseProduct(id);
     const {mutate :addToCart ,isPending :isAddingToCart}=UseAddToCart();
-    console.log(data?.response);
+    //console.log(data?.response);
     const product = data?.response;
     if(isLoading) return <CircularProgress></CircularProgress>
         if(isError) return <Typography>error</Typography>
