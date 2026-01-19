@@ -1,98 +1,57 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
-import UseProduct from '../../Hooks/useProduct';
+import { useProducts } from '../../Hooks/useProducts';
 import {
   Box,
-  Button,
   Card,
   CardContent,
   CardMedia,
   CircularProgress,
   Grid,
-  Rating,
   Typography
 } from '@mui/material';
-import UseAddToCart from '../../Hooks/useAddToCart';
+import { Link } from 'react-router-dom';
 
-const Product = () => {
-  const { id } = useParams();
-  const { data, isLoading, isError } = UseProduct(id);
-  const { mutate: addToCart, isPending: isAddingToCart } = UseAddToCart();
+export default function Products() {
+  const { isLoading, isError, data } = useProducts();
 
   if (isLoading) return <CircularProgress />;
   if (isError) return <Typography>error</Typography>;
 
-  const product = data.response;
-
   return (
-    <Box component="section" sx={{ py: 5 }}>
-      <Card sx={{ p: 3 }}>
-        <Grid container spacing={3} alignItems="center">
-          
-          {/* Image */}
-          <Grid size={{ xs: 12, md: 5 }}>
-            <CardMedia
-              component="img"
-              image={product.image}
-              alt={product.name}
-              sx={{
-                width: '100%',
-                height: 350,
-                objectFit: 'contain',
-              }}
-            />
-          </Grid>
+    <Box p={3}>
+      <Typography component="h2" variant="h4" textAlign="center" sx={{ mb: 4 }}>
+        Products
+      </Typography>
 
-          {/* Info */}
+      <Grid container spacing={2}>
+        {data.response.data.map(product => (
           <Grid
-            size={{ xs: 12, md: 7 }}
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: 2,
-              alignItems: 'flex-start'
-            }}
+            key={product.id}
+            size={{ xs: 12, sm: 6, md: 5, lg: 3 }}
           >
-            <Typography component="h1" variant="h3">
-              {product.name}
-            </Typography>
-
-            <Typography variant="h5">
-              ${product.price}
-            </Typography>
-
-            <Rating value={product.rate} readOnly />
-
-            <Typography>
-              Available Quantity : {product.quantity}
-            </Typography>
-
-            <Button
-              variant="contained"
-              sx={{ backgroundColor: "#ce967e" }}
-              onClick={() =>
-                addToCart({ ProductId: product.id, Count: 1 })
-              }
-              disabled={isAddingToCart}
+            <Link
+              to={`/product/${product.id}`}
+              style={{ textDecoration: 'none' }}
             >
-              Add to Cart
-            </Button>
+              <Card>
+                <CardMedia
+                  component="img"
+                  image={product.image}
+                  alt={product.title}
+                  sx={{ height: 200, objectFit: 'contain' }}
+                />
+                <CardContent>
+                  <Typography component="h3">
+                    {product.name}
+                  </Typography>
+                  <Typography component="span" variant="body1">
+                    {product.price}$
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Link>
           </Grid>
-
-        </Grid>
-
-        {/* Description */}
-        <Box mt={3} px={5}>
-          <Typography component="h3" variant="h5" sx={{ textDecoration: 'underline' }}>
-            Description:
-          </Typography>
-          <Typography>
-            {product.description}
-          </Typography>
-        </Box>
-      </Card>
+        ))}
+      </Grid>
     </Box>
   );
-};
-
-export default Product;
+}
