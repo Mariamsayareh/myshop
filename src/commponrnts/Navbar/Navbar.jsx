@@ -1,62 +1,71 @@
-import  react ,{useState } from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import { Link } from '@mui/material';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import ClickAwayListener from '@mui/material/ClickAwayListener';
-import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
-import PersonIcon from '@mui/icons-material/Person';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import { Link as Links } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-import useAuthStore from '../../stor/authStore';
+import React, { useState } from "react";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import { Link } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import Button from "@mui/material/Button";
+import Tooltip from "@mui/material/Tooltip";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import ClickAwayListener from "@mui/material/ClickAwayListener";
 
-const pages = [
-  { name: 'Home' },
-  {
-    name: 'Shop',
-    megaMenu: [
-      { title: 'col1', items: ['1', '2', '3'] },
-      { title: 'col2', items: ['1', '2', '3'] },
-      { title: 'col3', items: ['1', '2', '3'] },
-    ],
-  },
-  { name: 'Collection', options: ['1', '2', '3'] },
-  { name: 'Necklaces' },
-  { name: 'Contact' },
-  { name: 'More', options: ['Blog'] },
-];
+import MenuIcon from "@mui/icons-material/Menu";
+import SearchIcon from "@mui/icons-material/Search";
+import PersonIcon from "@mui/icons-material/Person";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+
+import { Link as RouterLink, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import useAuthStore from "../../stor/authStore";
 
 export default function Navbar() {
-  
-  const {token} = useAuthStore(state=>state);
-  const logout=useAuthStore(state=>state.logout);
-  const user=useAuthStore(state=>state.user);
-  //console.log(`ddd: ${token} `);
-  const navigate=useNavigate('');
-  const handleLogout=()=>{
-    logout();
-    navigate('/log in');
+  const { t ,i18n} = useTranslation();
+  const navigate = useNavigate();
+
+  const { token, user, logout } = useAuthStore((state) => state);
+  const toggleLanguage =()=>{
+    const newLng = i18n.language === 'ar'?'en':'ar';
+    i18n.changeLanguage(newLng);
   }
+
+  const pages = [
+    { label: t("Home"), path: "/home" },
+    {
+      label: t("Shop"),
+      path: "/shop",
+      megaMenu: [
+        { title: "col1", items: ["1", "2", "3"] },
+        { title: "col2", items: ["1", "2", "3"] },
+        { title: "col3", items: ["1", "2", "3"] },
+      ],
+    },
+    {
+      label: t("Collection"),
+      path: "/collection",
+      options: ["1", "2", "3"],
+    },
+    { label: t("Necklaces"), path: "/necklaces" },
+    { label: t("Contact"), path: "/contact" },
+    {
+      label: t("More"),
+      path: "/more",
+      options: [t("Blog")],
+    },
+  ];
+
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [dropdownOpen, setDropdownOpen] = useState(null);
-  const [dropdownPinned, setDropdownPinned] =useState(null);
 
-  const handleOpenNavMenu = (e) => setAnchorElNav(e.currentTarget);
-  const handleOpenUserMenu = (e) => setAnchorElUser(e.currentTarget);
-  const handleCloseNavMenu = () => setAnchorElNav(null);
-  const handleCloseUserMenu = () => setAnchorElUser(null);
+  const handleLogout = () => {
+    logout();
+    navigate("/log in");
+  };
 
   return (
     <AppBar position="static">
@@ -64,32 +73,32 @@ export default function Navbar() {
         <Toolbar
           disableGutters
           sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            padding: '25px',
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            padding: "25px",
           }}
         >
           {/* Mobile Menu */}
-          <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-            <IconButton color="inherit" onClick={handleOpenNavMenu}>
+          <Box sx={{ display: { xs: "flex", md: "none" } }}>
+            <IconButton color="inherit" onClick={(e) => setAnchorElNav(e.currentTarget)}>
               <MenuIcon />
             </IconButton>
             <Menu
               anchorEl={anchorElNav}
               open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
+              onClose={() => setAnchorElNav(null)}
             >
               {pages.map((page) => (
-                <MenuItem key={page.name} onClick={handleCloseNavMenu}>
+                <MenuItem key={page.path} onClick={() => setAnchorElNav(null)}>
                   <Link
-                      component={Links}
-                      to={`/${page.name.toLowerCase()}`}
-                      underline="none"
-                      color="inherit"
-                    >
-                      {page.name}
-                    </Link>
+                    component={RouterLink}
+                    to={page.path}
+                    underline="none"
+                    color="inherit"
+                  >
+                    {page.label}
+                  </Link>
                 </MenuItem>
               ))}
             </Menu>
@@ -97,65 +106,57 @@ export default function Navbar() {
 
           {/* Logo */}
           <Typography variant="h6" sx={{ fontWeight: 700 }}>
-            <Link component={Links} to="/home" underline="none" color="inherit">
+            <Link component={RouterLink} to="/home" underline="none" color="inherit">
               JUBILEE
             </Link>
           </Typography>
+
           <Typography variant="h6" sx={{ fontWeight: 700 }}>
-            Welcome {user?.name}
+            {t("Welcome")} {user?.name}
           </Typography>
 
           {/* Desktop Menu */}
-          <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 1 }}>
+          <Box sx={{ display: { xs: "none", md: "flex" }, gap: 1 }}>
             {pages.map((page) => {
-              const isMega = page.megaMenu?.length > 0;
-              const hasDropdown = page.options || isMega;
+              const isMega = Boolean(page.megaMenu);
+              const hasDropdown = Boolean(page.options || isMega);
 
               if (!hasDropdown) {
                 return (
-                  <Button key={page.name} sx={{ color: 'white' }}>
+                  <Button key={page.path} sx={{ color: "white" }}>
                     <Link
-                      component={Links}
-                      to={`/${page.name.toLowerCase()}`}
+                      component={RouterLink}
+                      to={page.path}
                       underline="none"
                       color="inherit"
                     >
-                      {page.name}
+                      {page.label}
                     </Link>
                   </Button>
                 );
               }
 
               return (
-                <ClickAwayListener
-                  key={page.name}
-                  onClickAway={() =>
-                    dropdownPinned !== page.name && setDropdownOpen(null)
-                  }
-                >
+                <ClickAwayListener key={page.path} onClickAway={() => setDropdownOpen(null)}>
                   <Box
-                    sx={{ position: 'relative' }}
-                    onMouseEnter={() =>
-                      !dropdownPinned && setDropdownOpen(page.name)
-                    }
-                    onMouseLeave={() =>
-                      !dropdownPinned && setDropdownOpen(null)
-                    }
+                    sx={{ position: "relative" }}
+                    onMouseEnter={() => setDropdownOpen(page.path)}
+                    onMouseLeave={() => setDropdownOpen(null)}
                   >
-                    <Button sx={{ color: 'white' }}>
-                      {page.name} <KeyboardArrowDownIcon />
+                    <Button sx={{ color: "white" }}>
+                      {page.label} <KeyboardArrowDownIcon />
                     </Button>
 
-                    {dropdownOpen === page.name && isMega && (
+                    {dropdownOpen === page.path && isMega && (
                       <Box
                         sx={{
-                          position: 'absolute',
-                          top: '40px',
-                          bgcolor: 'white',
-                          color: 'black',
+                          position: "absolute",
+                          top: "40px",
+                          bgcolor: "white",
+                          color: "black",
                           p: 2,
                           boxShadow: 3,
-                          display: 'grid',
+                          display: "grid",
                           gridTemplateColumns: `repeat(${page.megaMenu.length}, 1fr)`,
                           gap: 2,
                           zIndex: 20,
@@ -163,9 +164,7 @@ export default function Navbar() {
                       >
                         {page.megaMenu.map((col) => (
                           <Box key={col.title}>
-                            <Typography fontWeight={700}>
-                              {col.title}
-                            </Typography>
+                            <Typography fontWeight={700}>{col.title}</Typography>
                             {col.items.map((item) => (
                               <MenuItem key={item}>{item}</MenuItem>
                             ))}
@@ -174,13 +173,13 @@ export default function Navbar() {
                       </Box>
                     )}
 
-                    {dropdownOpen === page.name && page.options && !isMega && (
+                    {dropdownOpen === page.path && page.options && !isMega && (
                       <Box
                         sx={{
-                          position: 'absolute',
-                          top: '40px',
-                          bgcolor: 'white',
-                          color: 'black',
+                          position: "absolute",
+                          top: "40px",
+                          bgcolor: "white",
+                          color: "black",
                           p: 1,
                           boxShadow: 3,
                           zIndex: 20,
@@ -204,7 +203,7 @@ export default function Navbar() {
             </IconButton>
 
             <Tooltip title="Account">
-              <IconButton color="inherit" onClick={handleOpenUserMenu}>
+              <IconButton color="inherit" onClick={(e) => setAnchorElUser(e.currentTarget)}>
                 <PersonIcon />
               </IconButton>
             </Tooltip>
@@ -215,73 +214,42 @@ export default function Navbar() {
 
             {token && (
               <IconButton color="inherit">
-                <Link
-                      component={Links}
-                      to="/cart"
-                      underline="none"
-                      color="inherit"
-                    >
-                      <ShoppingCartIcon />
-                    </Link>
+                <Link component={RouterLink} to="/cart" underline="none" color="inherit">
+                  <ShoppingCartIcon />
+                </Link>
               </IconButton>
             )}
+            <Button color="inherit"
+             onClick={toggleLanguage}
+            >
+              {i18n.language === 'ar' ? 'EN' :'ع'}
+            </Button>
 
             <Menu
               anchorEl={anchorElUser}
               open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
+              onClose={() => setAnchorElUser(null)}
             >
               {!token && (
                 <>
-                  <MenuItem onClick={handleCloseUserMenu}>
-                    <Link
-                      component={Links}
-                      to="/log in"
-                      underline="none"
-                      color="inherit"
-                    >
-                      Log in
+                  <MenuItem onClick={() => setAnchorElUser(null)}>
+                    <Link component={RouterLink} to="/log in" underline="none" color="inherit">
+                      {t("Log in")}
                     </Link>
                   </MenuItem>
-
-                  <MenuItem onClick={handleCloseUserMenu}>
-                    <Link
-                      component={Links}
-                      to="/register"
-                      underline="none"
-                      color="inherit"
-                    >
-                      Register
+                  <MenuItem onClick={() => setAnchorElUser(null)}>
+                    <Link component={RouterLink} to="/register" underline="none" color="inherit">
+                      {t("Register")}
                     </Link>
                   </MenuItem>
                 </>
               )}
 
               {token && (
-                <MenuItem onClick={handleCloseUserMenu}>
-                  <Link
-                    component={Links}
-                    to="/log in"
-                    underline="none"
-                    color="inherit"
-                    onClick={handleLogout}
-                  >
-                    Log out
+                <MenuItem onClick={handleLogout}>
+                  <Link component={RouterLink} to="/log in" underline="none" color="inherit">
+                    {t("Log out")}
                   </Link>
-                  
-                <Tooltip title="Account">
-                  <Link
-                    component={Links}
-                    to="/log in"
-                    underline="none"
-                    color="inherit"
-                  >
-                     <PersonIcon />
-                  </Link>
-                 
-                </Tooltip>
-
-
                 </MenuItem>
               )}
             </Menu>

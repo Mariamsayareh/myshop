@@ -7,8 +7,10 @@ import { useForm } from "react-hook-form";
 import { ResetSchema } from "../../Validation/ReserSchema";
 import ErrorIcon from "@mui/icons-material/Error";
 import { useReset } from "../../Hooks/useReset.js";
+import { useTranslation } from "react-i18next";
 
 const Reset = () => {
+   const { t, i18n } = useTranslation();
   //const [serverErrors, setServerErrors] = useState([]);
   //const navigate = useNavigate();
 
@@ -42,10 +44,10 @@ const Reset = () => {
       <Card sx={{ width: 600, p: 3 }} variant="outlined">
         <CardContent>
           <Typography variant="h5" textAlign="center" mb={1} sx={{ fontWeight: "bold" }}>
-            Reset your password
+            {t('Reset your password')}
           </Typography>
           <Typography textAlign="center" mb={4} sx={{ color: "#6c6868" }}>
-            We will send you an email to reset your password
+            {t('We will send you an email to reset your password')}
           </Typography>
           {serverErrors && (Array.isArray(serverErrors)? serverErrors: [serverErrors]).map((err, i) => (
               <Box
@@ -87,7 +89,7 @@ const Reset = () => {
                 transition: "0.3s"
               }}
             >
-              Submit
+              {t('Submit')}
             </Button>
 
             <Link
@@ -97,7 +99,7 @@ const Reset = () => {
                                             color: "#ce967e", transform: "scale(1.05)",textDecoration: "none"
                                         },transition: "0.3s" }}
             >
-              Cancel
+              {t('Cancel')}
             </Link>
           </Box>
         </CardContent>

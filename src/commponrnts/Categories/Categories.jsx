@@ -10,8 +10,11 @@ import {
 } from "@mui/material";
 import { Link } from 'react-router-dom';
 import { useCategories } from '../../Hooks/useCategories';
+import { useTranslation } from "react-i18next";
+
 
 const Categories = () => {
+  const { t } = useTranslation();
   const { isLoading, isError, data } = useCategories();
 
   if (isLoading) {
@@ -27,7 +30,7 @@ const Categories = () => {
         }}
       >
         <CircularProgress />
-        <Typography variant="h6">Loading Categories...</Typography>
+        <Typography variant="h6">{t("Loading Categories...")}</Typography>
       </Box>
     );
   }
@@ -35,7 +38,7 @@ const Categories = () => {
   if (isError) {
     return (
       <Typography color="error" textAlign="center">
-        Failed to load categories
+        {t("Failed to load categories")}
       </Typography>
     );
   }
@@ -43,7 +46,7 @@ const Categories = () => {
   return (
     <Box p={3} sx={{ backgroundColor: '#f9f9f9' }}>
       <Typography component="h2" variant="h4" textAlign="center" sx={{ mb: 4 }}>
-        Categories
+       {t("Categories")}
       </Typography>
 
       <Container maxWidth="lg">

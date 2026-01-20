@@ -3,15 +3,17 @@ import { useParams } from 'react-router-dom';
 import UseProduct from '../../Hooks/useProduct';
 import { Box, Button, Card, CardContent, CardMedia, CircularProgress, Grid, Rating, Typography } from '@mui/material';
 import UseAddToCart from '../../Hooks/useAddToCart';
+import { useTranslation } from "react-i18next";
 
 const Product = () => {
+    const { t, i18n } = useTranslation();
     const {id}=useParams();
     const {data ,isLoading ,isError}=UseProduct(id);
     const {mutate :addToCart ,isPending :isAddingToCart}=UseAddToCart();
     //console.log(data?.response);
     const product = data?.response;
     if(isLoading) return <CircularProgress></CircularProgress>
-        if(isError) return <Typography>error</Typography>
+        if(isError) return <Typography>{t('error')}</Typography>
     return (
         <Box component={'section'} sx={{py:5}}>
             <Card sx={{p:3}}>
@@ -38,17 +40,17 @@ const Product = () => {
                         </Typography>
                         <Rating value={product.rate} readOnly></Rating>
                         <Typography>
-                            Available Quantity : {product.quantity}
+                            {t('Available Quantity')} : {product.quantity}
                         </Typography>
                         <Button variant='contained' sx={{backgroundColor: "#ce967e"}} 
                             onClick={()=>addToCart({ProductId:product.id ,Count:1})}
                             disabled={isAddingToCart}
-                        >Add to Cart</Button>
+                        >{t('Add to Cart')}</Button>
                     </Grid>
                 </Grid>
                 <Box mt={3} px={5}>
                     <Typography component={'h3'} variant='h5' sx={{textDecoration: 'underline'}}>
-                            Description:
+                            {t('Description')}:
                     </Typography>
                     <Typography >
                         {product.description}

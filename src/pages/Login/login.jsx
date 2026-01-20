@@ -8,9 +8,11 @@ import {LoginSchema} from '../../Validation/loginSchema.js';
 import ErrorIcon from '@mui/icons-material/Error';
 import { useLocation} from "react-router-dom";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import { useTranslation } from "react-i18next";
 
 import { useLogin } from '../../Hooks/useLogin.js';
 const Login = () => {
+    const { t, i18n } = useTranslation();
     const location = useLocation();
      //const navigate = useNavigate();
     
@@ -50,7 +52,7 @@ const Login = () => {
                 <Card sx={{ width: 600, p: 3 }} variant="outlined">
                     <CardContent>
                     <Typography variant="h4" textAlign="center" mb={3} sx={{fontWeight: "bold"}}>
-                        Log in to your account
+                        {t('Log in to your account')}
                     </Typography>
                     {message && (
                         <Box
@@ -70,20 +72,20 @@ const Login = () => {
                         <Box key={i} sx={{ display: "flex", flexDirection:"column", gap: 1, color: "red" }}>
                             <Box sx={{ display: "flex"}}>
                             <ErrorIcon sx={{ fontSize: "30px" }} />
-                            <Typography variant="h6" sx={{fontWeight: "bold" , color:"#000" }}>Please adjust the following:</Typography>
+                            <Typography variant="h6" sx={{fontWeight: "bold" , color:"#000" }}>{t('Please adjust the following')}:</Typography>
                             </Box>
                             <Typography component="p" variant="body" sx={{ color:"#000" , mb:2}}>
-                            This email address or password is invalid, you can <Link component={Links} to='/reset'  color='inherit'sx={{
+                            {t('This email address or password is invalid, you can')} <Link component={Links} to='/reset'  color='inherit'sx={{
                             "&:hover": { 
                                 color: "#ce967e", transform: "scale(1.05)",textDecoration: "none"
                                 },transition: "0.3s" }}>
-                            reset your password
+                            {t('reset your password')}
                             </Link>,
-                            or you can <Link component={Links} to='/register'  color='inherit' sx={{
+                            {t('or you can')} <Link component={Links} to='/register'  color='inherit' sx={{
                             "&:hover": { 
                                 color: "#ce967e", transform: "scale(1.05)",textDecoration: "none"
                                 },transition: "0.3s" }}>
-                                Create an now account
+                                {t('Create an now account')}
                             </Link>
                             
                             </Typography>
@@ -110,20 +112,20 @@ const Login = () => {
                                 "&:hover": { 
                                     color: "#ce967e", transform: "scale(1.05)",textDecoration: "none"
                                 },transition: "0.3s" }}>
-                                Forgot your password?
+                                {t('Forgot your password?')}
                             </Link>
                         </Box>
                         <Button variant="contained" type="submit" sx={{ p: 1 , backgroundColor:"#ce967e",
                         "&:hover": { 
                             backgroundColor: "#090b0d", transform: "scale(1.05)", 
                         },transition: "0.3s" }} fullWidth>
-                        Register
+                        {t('Register')}
                         </Button>
                         <Link component={Links} to='/register'  color='inherit' sx={{
                             "&:hover": { 
                                 color: "#ce967e", transform: "scale(1.05)",textDecoration: "none"
                             },transition: "0.3s" }}>
-                            No account yet? Create an account
+                           {t('No account yet? Create an account')}
                         </Link>
                     </Box>
                     </CardContent>

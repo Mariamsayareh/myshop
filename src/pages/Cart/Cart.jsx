@@ -16,12 +16,13 @@ import {
 } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
-
+import { useTranslation } from "react-i18next";
 import useCart from "../../Hooks/useCart.js";
 import useRemoveItmeCart from "../../Hooks/useRemoveItmeCart.js";
 import useUpdateCaet from "../../Hooks/useUpdateCaet.js";
 
 export default function Cart() {
+  const { t, i18n } = useTranslation();
   const {data,isLoading,isError}=useCart();
   const {mutate:reomveItme,isPending}=useRemoveItmeCart();
   const {mutate:updateItme,isPending:updateItmePending}=useUpdateCaet();
@@ -35,7 +36,7 @@ export default function Cart() {
   }
   //console.log(data);
   if(isLoading) return <CircularProgress></CircularProgress>
-  if(isError) return <Typography>error</Typography>
+  if(isError) return <Typography>{t('error')}</Typography>
 
   return (
     <Box component='section' sx={{py:5}}>
@@ -43,19 +44,19 @@ export default function Cart() {
         <Table>
           <TableHead>
             <TableCell>
-              Product name
+              {t('Product name')}
             </TableCell>
             <TableCell>
-              Price
+             {t('Price')}
             </TableCell>
             <TableCell>
-              Quantity
+              {t('Quantity')}
             </TableCell>
             <TableCell>
-              Total
+              {t('Total')}
             </TableCell>
             <TableCell>
-              Action
+              {t('Action')}
             </TableCell>
           </TableHead>
           <TableBody>
@@ -83,12 +84,12 @@ export default function Cart() {
                 <TableCell><Button color="error" variant="contained"
                  onClick={()=>reomveItme(item.productId)}
                  disabled={isPending}
-                >REMOVE</Button></TableCell>
+                >{t('REMOVE')}</Button></TableCell>
               </TableRow>
             ))}
             <TableRow>
               <TableCell colSpan={4} align="right">
-                Cart Total :${data.cartTotal}
+                {t('Cart Total')} :${data.cartTotal}
               </TableCell>
             </TableRow>
           </TableBody>

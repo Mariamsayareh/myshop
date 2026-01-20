@@ -6,10 +6,13 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { NewpasswordSchema } from "../../Validation/NewpasswordSchema.js";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import ErrorIcon from "@mui/icons-material/Error";
+import { useTranslation } from "react-i18next";
+
 
 import { useNewpass } from "../../Hooks/useNewpass.js";
 
 const NewPassword = () => {
+  const { t, i18n } = useTranslation();
   
   const [successMessage, setSuccessMessage] = useState("");
 
@@ -32,7 +35,7 @@ const NewPassword = () => {
       <Card sx={{ width: 600, p: 3 }} variant="outlined">
         <CardContent>
           <Typography variant="h4" textAlign="center" mb={3} sx={{ fontWeight: "bold" }}>
-            Create a New Password
+            {t('Create a New Password')}
           </Typography>
 
           {/* Server errors */}
@@ -98,7 +101,7 @@ const NewPassword = () => {
               }}
               fullWidth
             >
-              Submit
+              {t('Submit')}
             </Button>
           </Box>
         </CardContent>
