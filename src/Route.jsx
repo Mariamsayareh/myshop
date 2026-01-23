@@ -15,6 +15,7 @@ import NewPassword from "./pages/NewPassword/NewPassword.jsx";
 import CartDrawer from "./commponrnts/CartDrawer/CartDrawer.jsx";
 import ProtectedRouter from "../protectedRouter.jsx";
 import Product from "./pages/Products/Product.jsx";
+import Checkout from "./pages/Checkout/Checkout.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -30,6 +31,12 @@ const router = createBrowserRouter([
             <ProtectedRouter>
               <Cart/>
             </ProtectedRouter>
+        },
+        {
+          path:'checkout',
+            element:
+            
+              <Checkout/>
         },
         {
             path:'shop',

@@ -5,7 +5,12 @@ const axiosInstance = axios.create({
     baseURL: 'https://knowledgeshop.runasp.net/api'
 });
 axiosInstance.interceptors.request.use((config) => {
-    config.headers["Accept-Language"] = i18n.language;
-    return config; //بحمل كل معلومات الريكوست
-})
+    const lang =
+        localStorage.getItem("lang") ||
+        i18n.resolvedLanguage ||
+        "en";
+
+    config.headers["Accept-Language"] = lang;
+    return config;
+});
 export default axiosInstance;
