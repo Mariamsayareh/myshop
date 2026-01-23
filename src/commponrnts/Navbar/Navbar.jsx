@@ -22,6 +22,7 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import useAuthStore from "../../stor/authStore";
+import useThemeStore from "../../stor/useThemeStore";
 
 export default function Navbar() {
   const { t ,i18n} = useTranslation();
@@ -66,6 +67,7 @@ export default function Navbar() {
     logout();
     navigate("/log in");
   };
+  const {mode,toggleTheme}=useThemeStore();
 
   return (
     <AppBar position="static">
@@ -223,6 +225,11 @@ export default function Navbar() {
              onClick={toggleLanguage}
             >
               {i18n.language === 'ar' ? 'EN' :'ع'}
+            </Button>
+            <Button color="inherit"
+             onClick={toggleTheme}
+            >
+              {mode === 'dark' ? t('Light') : t('Dark')}
             </Button>
 
             <Menu

@@ -76,6 +76,9 @@ i18n
           "Continue Shopping ":"Continue Shopping ",
           "Pay Now": "Pay Now",
           "Processing": "Processing...",
+          "Light Mode": "Light Mode",
+          "Dark": "Dark",
+
 
 
         }},
@@ -147,7 +150,10 @@ i18n
                 "Proceed to checkout": "المتابعة إلى الدفع",
                 "Continue Shopping": "متابعة التسوق",
                 "Pay Now": "ادفع الآن",
-                "Processing": "جاري المعالجة..."
+                "Processing": "جاري المعالجة...",
+                "Light": "الوضع الفاتح",
+                "Dark": "الوضع الداكن"
+
 
 
              }
