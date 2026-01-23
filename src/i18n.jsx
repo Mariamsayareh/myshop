@@ -69,6 +69,14 @@ i18n
           "Log in":"Log in",
           "Log out": "Log out",
           "Welcome ":"Welcome ",
+          "Checkout failed": "Checkout failed",
+          "Cash ":"Cash ",
+          "Visa ":"Visa ",
+          "Proceed to checkout ":"Proceed to checkout ",
+          "Continue Shopping ":"Continue Shopping ",
+          "Pay Now": "Pay Now",
+          "Processing": "Processing...",
+
 
         }},
         ar: {
@@ -132,7 +140,16 @@ i18n
                 "Blog": "المدونة",
                 "Log in": "تسجيل الدخول",
                 "Log out": "تسجيل الخروج",
-                "Welcome": "مرحبًا "
+                "Welcome": "مرحبًا ",
+                "Checkout failed": "فشل إتمام عملية الدفع",
+                "Cash": "نقدًا",
+                "Visa": "فيزا",
+                "Proceed to checkout": "المتابعة إلى الدفع",
+                "Continue Shopping": "متابعة التسوق",
+                "Pay Now": "ادفع الآن",
+                "Processing": "جاري المعالجة..."
+
+
              }
 }
 

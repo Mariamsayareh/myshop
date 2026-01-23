@@ -112,7 +112,7 @@ export default function Cart() {
           color="success"
           onClick={() => navigate('/checkout')}
         >
-          Proceed to checkout
+          {t("Proceed to checkout")}
         </Button>
 
         <Button
@@ -120,7 +120,7 @@ export default function Cart() {
           color="primary"
           onClick={() => navigate('/home')}
         >
-          Continue Shopping
+          {t("Continue Shopping")}
         </Button>
       </Box>
     </Box>

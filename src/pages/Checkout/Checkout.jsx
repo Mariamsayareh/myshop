@@ -85,8 +85,8 @@ const Checkout = () => {
           label={t('Payment Method')}
           onChange={(e) => setPaymentMethod(e.target.value)}
         >
-          <MenuItem value="cash">Cash</MenuItem>
-          <MenuItem value="visa">Visa</MenuItem>
+          <MenuItem value="cash">{t("Cash")}</MenuItem>
+          <MenuItem value="visa">{t("Visa")}</MenuItem>
         </Select>
       </FormControl>
 
@@ -97,7 +97,7 @@ const Checkout = () => {
           onClick={handleCheckout}
           disabled={isCheckoutPending}
         >
-          {isCheckoutPending ? 'Processing...' : 'Pay Now'}
+          {isCheckoutPending ? t('Processing') : t('Pay Now')}
         </Button>
       </Box>
 
