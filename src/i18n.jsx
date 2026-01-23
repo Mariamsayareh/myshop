@@ -78,6 +78,8 @@ i18n
           "Processing": "Processing...",
           "Light Mode": "Light Mode",
           "Dark": "Dark",
+          "Profile": "Profile",
+          "Search products": "Search products",
 
 
 
@@ -152,7 +154,9 @@ i18n
                 "Pay Now": "ادفع الآن",
                 "Processing": "جاري المعالجة...",
                 "Light": "الوضع الفاتح",
-                "Dark": "الوضع الداكن"
+                "Dark": "الوضع الداكن",
+                "Profile": "الملف الشخصي",
+                "Search products": "بحث عن المنتج",
 
 
 

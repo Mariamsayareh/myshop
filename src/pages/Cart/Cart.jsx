@@ -118,7 +118,7 @@ export default function Cart() {
         <Button
           variant="contained"
           color="primary"
-          onClick={() => navigate('/home')}
+          onClick={() => navigate('/')}
         >
           {t("Continue Shopping")}
         </Button>

@@ -44,7 +44,7 @@ const Categories = () => {
   }
 
   return (
-    <Box p={3} sx={{ backgroundColor: '#f9f9f9' }}>
+    <Box p={3} >
       <Typography component="h2" variant="h4" textAlign="center" sx={{ mb: 4 }}>
        {t("Categories")}
       </Typography>

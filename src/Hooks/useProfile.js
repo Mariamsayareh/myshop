@@ -2,8 +2,8 @@
  import useFetch from './useFetch';
  import axiosAuthInstance from '../Api/axiosAuthInstance';
 
- const UseCart = () => {
-     return useFetch(['carts'], '/Carts', {}, axiosAuthInstance);
+ const useProfile = () => {
+     return useFetch(['profile'], '/Profile', axiosAuthInstance);
  }
 
- export default UseCart;
+ export default useProfile;

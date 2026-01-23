@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import axiosInstance from "../Api/axiosInstance";
 
-export default function useFetch(queryKey, url, instance = axiosInstance) {
+export default function useFetch(queryKey, url, params = {}, instance = axiosInstance) {
     const fetchData = async() => {
 
-        const respose = await instance.get(url);
+        const respose = await instance.get(url, { params });
         return respose.data;
 
     };

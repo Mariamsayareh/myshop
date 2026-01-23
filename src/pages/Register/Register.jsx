@@ -94,7 +94,7 @@ const Register = () => {
                 },transition: "0.3s" }} fullWidth>
                     {t('Register')}
             </Button>
-            <Link component={Links} to='/home'  color='inherit' sx={{
+            <Link component={Links} to='/'  color='inherit' sx={{
                 "&:hover": { 
                     color: "#ce967e", transform: "scale(1.05)",textDecoration: "none"
                     },transition: "0.3s" }}>

@@ -1,11 +1,11 @@
 import React from 'react';
 import Categories from '../../commponrnts/Categories/Categories';
-import Products from '../Products/Products';
+import ProductsSection from '../Products/ProductsSection';
 const Home = () => {
     return (
         <>
             <Categories/>
-            <Products/>
+            <ProductsSection/>
         </>
     );
 }

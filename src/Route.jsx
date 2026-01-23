@@ -15,14 +15,18 @@ import NewPassword from "./pages/NewPassword/NewPassword.jsx";
 import CartDrawer from "./commponrnts/CartDrawer/CartDrawer.jsx";
 import ProtectedRouter from "../protectedRouter.jsx";
 import Product from "./pages/Products/Product.jsx";
+import Products from "./pages/Products/Products.jsx";
 import Checkout from "./pages/Checkout/Checkout.jsx";
+import Profile from "./pages/Profile/Prohile.jsx";
+import ProfileOrders from "./pages/Profile/ProfileOrders.jsx";
+import ProfileInfo from "./pages/Profile/ProfileInfo.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
     element:<MainLayout/>,
     children:[
         {
-            path:'home',
+            index:true,
             element:<Home/>
         },
         {
@@ -37,6 +41,12 @@ const router = createBrowserRouter([
             element:
             
               <Checkout/>
+        },
+        {
+          path:'products',
+            element:
+            
+              <Products/>
         },
         {
             path:'shop',
@@ -80,6 +90,18 @@ const router = createBrowserRouter([
         },{
           path:'product/:id',
           element:<Product/>
+        },{
+          path:'profile',
+          element:<Profile/>,
+          children:[
+            {
+              path:'orders',
+              element:<ProfileOrders/>,
+            },{
+              index:true,
+              element:<ProfileInfo/>,
+            }
+          ]
         }
     ]
   },

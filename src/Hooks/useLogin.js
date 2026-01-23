@@ -32,7 +32,7 @@ export const useLogin = () => {
             // console.log("Stored user:", localStorage.getItem("user"));
             // console.log("Stored token:", localStorage.getItem("token"));
 
-            navigate('/home');
+            navigate('/');
 
         },
         onError: (error) => {

@@ -35,7 +35,7 @@ export default function Navbar() {
   }
 
   const pages = [
-    { label: t("Home"), path: "/home" },
+    { label: t("Home"), path: "/" },
     {
       label: t("Shop"),
       path: "/shop",
@@ -108,7 +108,7 @@ export default function Navbar() {
 
           {/* Logo */}
           <Typography variant="h6" sx={{ fontWeight: 700 }}>
-            <Link component={RouterLink} to="/home" underline="none" color="inherit">
+            <Link component={RouterLink} to="/" underline="none" color="inherit">
               JUBILEE
             </Link>
           </Typography>
@@ -253,12 +253,30 @@ export default function Navbar() {
               )}
 
               {token && (
+              <>
+              <MenuItem onClick={() => setAnchorElUser(null)}>
+                  <Link
+                    component={RouterLink}
+                    to="/profile"
+                    underline="none"
+                    color="inherit"
+                  >
+                    {t("Profile")}
+                  </Link>
+                </MenuItem>
                 <MenuItem onClick={handleLogout}>
-                  <Link component={RouterLink} to="/log in" underline="none" color="inherit">
+                  <Link
+                    component={RouterLink}
+                    to="/log in"
+                    underline="none"
+                    color="inherit"
+                  >
                     {t("Log out")}
                   </Link>
                 </MenuItem>
-              )}
+              </>
+            )}
+
             </Menu>
           </Box>
         </Toolbar>

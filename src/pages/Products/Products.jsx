@@ -1,60 +1,76 @@
 import { useProducts } from '../../Hooks/useProducts';
 import {
   Box,
-  Card,
-  CardContent,
-  CardMedia,
+  Button,
   CircularProgress,
   Grid,
+  TextField,
   Typography
 } from '@mui/material';
-import { Link } from 'react-router-dom';
 import { useTranslation } from "react-i18next";
+import ComponentPeoduct from './ComponentPeoduct';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 
-
-export default function Products() {
-  const { t, i18n } = useTranslation();
-  const { isLoading, isError, data } = useProducts();
+const Products = () => {
+  const { t } = useTranslation();
+  const {register, handleSubmit} = useForm({
+    defaultValues:{
+      search:'',
+      categoryId:'',
+      minPrice:'',
+      maxPrice:'',
+    }
+  })
+  const [acitveFilters ,setAcitveFilters]=useState('');
+  const { isLoading, isError, data } = useProducts(acitveFilters);
+  const applyFilters =(values)=>{
+    setAcitveFilters({
+      search:values.search || null ,
+      categoryId:values.categoryId || null ,
+      minPrice:values.minPrice || null ,
+      maxPrice:values.maxPrice || null ,
+    })
+  }
 
   if (isLoading) return <CircularProgress />;
   if (isError) return <Typography>{t('error')}</Typography>;
 
   return (
     <Box p={3}>
+      <Box component={'form'} display={'flex'} gap={3}
+      onSubmit={handleSubmit(applyFilters)}>
+        <TextField
+        label={t('Search products')}
+       {...register('search')}
+      />
+      <TextField
+        label={t('Category')}
+       {...register('categoryId')}
+      />
+      <TextField
+        label={t('Min Price')}
+       {...register('minPrice')}
+      />
+      <TextField
+        label={t('Max Price')}
+       {...register('maxPrice')}
+      />
+      <Button type='submit'>Apply Filters</Button>
+      </Box>
+
       <Typography component="h2" variant="h4" textAlign="center" sx={{ mb: 4 }}>
         {t('Products')}
       </Typography>
+      
 
       <Grid container spacing={2}>
         {data.response.data.map(product => (
-          <Grid
-            key={product.id}
-            size={{ xs: 12, sm: 6, md: 5, lg: 3 }}
-          >
-            <Link
-              to={`/product/${product.id}`}
-              style={{ textDecoration: 'none' }}
-            >
-              <Card>
-                <CardMedia
-                  component="img"
-                  image={product.image}
-                  alt={product.title}
-                  sx={{ height: 200, objectFit: 'contain' }}
-                />
-                <CardContent>
-                  <Typography component="h3">
-                    {product.name}
-                  </Typography>
-                  <Typography component="span" variant="body1">
-                    {product.price}$
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Link>
-          </Grid>
+          <ComponentPeoduct key={product.id} product={product} />
         ))}
       </Grid>
     </Box>
   );
-}
+};
+
+export default Products;
