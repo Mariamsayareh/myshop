@@ -10,7 +10,9 @@ import {
   Rating,
   Typography,
   TextField,
-  Alert
+  Alert,
+  Avatar,
+  Divider
 } from '@mui/material';
 
 import UseProduct from '../../Hooks/useProduct';
@@ -55,6 +57,13 @@ const Product = () => {
     );
   };
 
+  const formatDate = (date) =>
+    new Date(date).toLocaleDateString("en-GB", {
+      year: "numeric",
+      month: "short",
+      day: "numeric"
+    });
+
   return (
     <Box component="section" sx={{ py: 5 }}>
       <Card sx={{ p: 3 }}>
@@ -79,12 +88,10 @@ const Product = () => {
             sx={{
               display: 'flex',
               flexDirection: 'column',
-              gap: 2,
-              alignItems: 'flex-start'
+              gap: 2
             }}
           >
             <Typography variant="h3">{product.name}</Typography>
-
             <Typography variant="h5">${product.price}</Typography>
 
             <Rating value={product.rate} readOnly />
@@ -112,19 +119,16 @@ const Product = () => {
             </Button>
           </Grid>
         </Grid>
-
-        {/* Description */}
-        <Box mt={4} px={2}>
+        <Box mt={4}>
           <Typography variant="h5" sx={{ textDecoration: 'underline' }}>
-            {t('Description')}:
+            {t('Description')}
           </Typography>
           <Typography mt={1}>{product.description}</Typography>
         </Box>
-
-        {/* Review Form */}
+        {/* Add Review Form */}
         {showReviewForm && (
-          <Box mt={4} px={2}>
-            <Typography variant="h6" mb={1}>
+          <Box mt={5}>
+            <Typography variant="h6">
               {t('Add your review')}
             </Typography>
 
@@ -154,18 +158,72 @@ const Product = () => {
 
             {isSuccess && (
               <Alert severity="success" sx={{ mt: 2 }}>
-                Review added successfully
+                {r("Review added successfully")}
               </Alert>
             )}
 
             {isReviewError && (
               <Alert severity="error" sx={{ mt: 2 }}>
                 {error?.response?.data?.message ||
-                  "You already reviewed this product"}
+                  t("You already reviewed this product")}
               </Alert>
             )}
           </Box>
         )}
+
+        {/* Reviews List */}
+        <Box mt={6}>
+          <Typography variant="h5" mb={2} sx={{ textDecoration: 'underline' }}>
+            {t('Customer Reviews')}
+          </Typography>
+
+          {product.reviews.length === 0 ? (
+            <Typography color="text.secondary">
+              {t("No reviews yet")}
+            </Typography>
+          ) : (
+            product.reviews.map((review, index) => (
+              <Card
+                key={index}
+                sx={{
+                  p: 2,
+                  mb: 2,
+                  borderRadius: 2,
+                  boxShadow: 1
+                }}
+              >
+                <Box display="flex" alignItems="center" gap={2}>
+                  <Avatar sx={{ bgcolor: "#ce967e" }}>
+                    {review.userName.charAt(0).toUpperCase()}
+                  </Avatar>
+
+                  <Box flex={1}>
+                    <Typography fontWeight={600}>
+                      {review.userName}
+                    </Typography>
+
+                    <Rating
+                      value={review.rating}
+                      readOnly
+                      size="small"
+                    />
+
+                    <Typography variant="caption" color="text.secondary">
+                      {formatDate(review.createdAt)}
+                    </Typography>
+                  </Box>
+                </Box>
+
+                <Divider sx={{ my: 1 }} />
+
+                <Typography variant="body2">
+                  {review.comment}
+                </Typography>
+              </Card>
+            ))
+          )}
+        </Box>
+
       </Card>
     </Box>
   );

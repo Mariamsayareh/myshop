@@ -17,7 +17,7 @@ import ProtectedRouter from "../protectedRouter.jsx";
 import Product from "./pages/Products/Product.jsx";
 import Products from "./pages/Products/Products.jsx";
 import Checkout from "./pages/Checkout/Checkout.jsx";
-import Profile from "./pages/Profile/Prohile.jsx";
+import Profile from "./pages/Profile/Profile.jsx";
 import ProfileOrders from "./pages/Profile/ProfileOrders.jsx";
 import ProfileInfo from "./pages/Profile/ProfileInfo.jsx";
 const router = createBrowserRouter([
@@ -98,7 +98,7 @@ const router = createBrowserRouter([
               path:'orders',
               element:<ProfileOrders/>,
             },{
-              index:true,
+              path:'info',
               element:<ProfileInfo/>,
             }
           ]

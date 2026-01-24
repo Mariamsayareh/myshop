@@ -56,7 +56,7 @@ const Products = () => {
         label={t('Max Price')}
        {...register('maxPrice')}
       />
-      <Button type='submit'>Apply Filters</Button>
+      <Button type='submit'>{t("Apply Filters")}</Button>
       </Box>
 
       <Typography component="h2" variant="h4" textAlign="center" sx={{ mb: 4 }}>
