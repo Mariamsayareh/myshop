@@ -108,6 +108,9 @@ i18n
           "No orders found": "No orders found",
           "Customer Reviews": "Customer Reviews",
           "No reviews yet": "No reviews yet",
+          "Failed to load products": "Failed to load products",
+          "No products available in the selected category": "No products available in the selected category",
+          "Go back to Home": "Go back to Home",
            
 
 
@@ -213,6 +216,10 @@ i18n
                 "Status": "الحالة",
                 "Customer Reviews": "آراء العملاء",
                 "No reviews yet": "لا توجد تقييمات بعد",
+                "Failed to load products": "فشل تحميل المنتجات",
+                "No products available in the selected category": "لا توجد منتجات في الفئة المحددة",
+                "Go back to Home": "العودة إلى الصفحة الرئيسية",
+
 
 
 

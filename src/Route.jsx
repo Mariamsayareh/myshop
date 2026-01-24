@@ -20,6 +20,7 @@ import Checkout from "./pages/Checkout/Checkout.jsx";
 import Profile from "./pages/Profile/Profile.jsx";
 import ProfileOrders from "./pages/Profile/ProfileOrders.jsx";
 import ProfileInfo from "./pages/Profile/ProfileInfo.jsx";
+import Categorie from "./commponrnts/Categories/Categorie.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -87,10 +88,16 @@ const router = createBrowserRouter([
         {
           path:'cart-drawer',
           element:<CartDrawer/>
-        },{
+        },
+        {
           path:'product/:id',
           element:<Product/>
-        },{
+        },
+        {
+          path:'Products/category/:id',
+          element:<Categorie/>
+        },
+        {
           path:'profile',
           element:<Profile/>,
           children:[

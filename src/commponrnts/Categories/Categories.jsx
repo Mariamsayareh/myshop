@@ -57,7 +57,7 @@ const Categories = () => {
               size={{ xs: 12, sm: 6, md: 4, lg: 3 }}
             >
               <Link
-                to={`/products/${category.id}`}
+                to={`/Products/category/${category.id}`}
                 style={{ textDecoration: 'none' }}
               >
                 <Card
