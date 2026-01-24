@@ -45,9 +45,9 @@ const Register = () => {
               <Box key={i} sx={{ display: "flex", flexDirection:"column", gap: 1, color: "red" }}>
                 <Box sx={{ display: "flex"}}>
                 <ErrorIcon sx={{ fontSize: "30px" }} />
-                <Typography variant="h6" sx={{fontWeight: "bold" , color:"#000" }}>{t('Please adjust the following')}:</Typography>
+                <Typography variant="h6" sx={{fontWeight: "bold" , color:"text.primary" }}>{t('Please adjust the following')}:</Typography>
                 </Box>
-                <Typography component="p" variant="body" sx={{ color:"#000" , mb:2}}>
+                <Typography component="p" variant="body" sx={{ color:"text.primary" , mb:2}}>
                   {t('This email address is already associated with an account.')} 
                   {t('If this account is yours, you can')} 
                   <Link component={Links} to='/log in'  color='inherit' sx={{

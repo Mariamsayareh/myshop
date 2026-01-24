@@ -64,7 +64,7 @@ const Login = () => {
                         }}
                         >
                         <CheckCircleIcon sx={{ color: "#4caf50", mr: 1 }} />
-                        <Typography component="p" sx={{ color: "#000" }}>{message}</Typography>
+                        <Typography component="p" color="text.primary">{message}</Typography>
                         </Box>
                     )}
                     {serverErrors?.length > 0 &&
@@ -72,9 +72,9 @@ const Login = () => {
                         <Box key={i} sx={{ display: "flex", flexDirection:"column", gap: 1, color: "red" }}>
                             <Box sx={{ display: "flex"}}>
                             <ErrorIcon sx={{ fontSize: "30px" }} />
-                            <Typography variant="h6" sx={{fontWeight: "bold" , color:"#000" }}>{t('Please adjust the following')}:</Typography>
+                            <Typography variant="h6" sx={{fontWeight: "bold" , color:"text.primary" }}>{t('Please adjust the following')}:</Typography>
                             </Box>
-                            <Typography component="p" variant="body" sx={{ color:"#000" , mb:2}}>
+                            <Typography component="p" variant="body" sx={{ color:"text.primary" , mb:2}}>
                             {t('This email address or password is invalid, you can')} <Link component={Links} to='/reset'  color='inherit'sx={{
                             "&:hover": { 
                                 color: "#ce967e", transform: "scale(1.05)",textDecoration: "none"

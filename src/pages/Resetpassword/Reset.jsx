@@ -55,7 +55,7 @@ const Reset = () => {
                 sx={{ display: "flex", alignItems: "center", gap: 1, mb: 2 }}
               >
                 <ErrorIcon sx={{ fontSize: 18, color: "red" }} />
-                <Typography sx={{ fontWeight: "bold", color: "#000" }}>
+                <Typography sx={{ fontWeight: "bold", color:"text.primary" }}>
                   {err}
                 </Typography>
               </Box>
