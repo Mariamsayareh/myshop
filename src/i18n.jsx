@@ -111,6 +111,7 @@ i18n
           "Failed to load products": "Failed to load products",
           "No products available in the selected category": "No products available in the selected category",
           "Go back to Home": "Go back to Home",
+          "Are you sure you want to clear the carte": "Are you sure you want to clear the cart",
            
 
 
@@ -219,6 +220,7 @@ i18n
                 "Failed to load products": "فشل تحميل المنتجات",
                 "No products available in the selected category": "لا توجد منتجات في الفئة المحددة",
                 "Go back to Home": "العودة إلى الصفحة الرئيسية",
+                "Are you sure you want to clear the carte": "هل أنت متأكد أنك تريد تفريغ السلة",
 
 
 

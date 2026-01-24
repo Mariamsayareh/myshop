@@ -1,11 +1,8 @@
 import {
   Box,
-  Container,
   Typography,
-  Grid,
   IconButton,
   Button,
-  Divider,
   TableContainer,
   TableHead,
   TableCell,
@@ -17,9 +14,10 @@ import {
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import { useTranslation } from "react-i18next";
-import useCart from "../../Hooks/useCart.js";
-import useRemoveItmeCart from "../../Hooks/useRemoveItmeCart.js";
-import useUpdateCaet from "../../Hooks/useUpdateCaet.js";
+import useCart from "../../Hooks/useCart";
+import useRemoveItmeCart from "../../Hooks/useRemoveItmeCart";
+import useUpdateCaet from "../../Hooks/useUpdateCaet";
+import useClearCart from "../../Hooks/useClearCart";
 import { useNavigate } from "react-router-dom";
 
 export default function Cart() {
@@ -27,18 +25,22 @@ export default function Cart() {
   const { t } = useTranslation();
 
   const { data, isLoading, isError } = useCart();
-  const { mutate: reomveItme, isPending } = useRemoveItmeCart();
-  const { mutate: updateItme } = useUpdateCaet();
+  const { mutate: removeItem, isPending } = useRemoveItmeCart();
+  const { mutate: updateItem } = useUpdateCaet();
+  const { mutate: clearCart, isPending: isClearing } = useClearCart();
 
   const handleUpdate = (productId, action) => {
     const item = data.items.find(i => i.productId === productId);
-    console.log(item)
     if (!item) return;
 
-    updateItme({
-      productId,
-      count: action === '-' ? item.count - 1 : item.count + 1
-    });
+    const newCount = action === '-' ? item.count - 1 : item.count + 1;
+
+    if (newCount <= 0) {
+      removeItem(productId);
+      return;
+    }
+
+    updateItem({ productId, count: newCount });
   };
 
   if (isLoading) return <CircularProgress />;
@@ -65,21 +67,15 @@ export default function Cart() {
                 <TableCell>${item.price}</TableCell>
 
                 <TableCell sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-                  <Box sx={{ border: "1px solid #ddd" }}>
-                    <IconButton onClick={() => handleUpdate(item.productId, '-')}>
-                      <RemoveIcon />
-                    </IconButton>
-                  </Box>
+                  <IconButton onClick={() => handleUpdate(item.productId, '-')}>
+                    <RemoveIcon />
+                  </IconButton>
 
-                  <Typography component="span">
-                    {item.count}
-                  </Typography>
+                  <Typography>{item.count}</Typography>
 
-                  <Box sx={{ border: "1px solid #ddd" }}>
-                    <IconButton onClick={() => handleUpdate(item.productId, '+')}>
-                      <AddIcon />
-                    </IconButton>
-                  </Box>
+                  <IconButton onClick={() => handleUpdate(item.productId, '+')}>
+                    <AddIcon />
+                  </IconButton>
                 </TableCell>
 
                 <TableCell>${item.totalPrice}</TableCell>
@@ -88,7 +84,7 @@ export default function Cart() {
                   <Button
                     color="error"
                     variant="contained"
-                    onClick={() => reomveItme(item.productId)}
+                    onClick={() => removeItem(item.productId)}
                     disabled={isPending}
                   >
                     {t('REMOVE')}
@@ -96,16 +92,31 @@ export default function Cart() {
                 </TableCell>
               </TableRow>
             ))}
-
             <TableRow>
-              <TableCell colSpan={5} align="right">
-                {t('Cart Total')} : ${data.cartTotal}
+              <TableCell colSpan={3}>
+                <Button
+                  variant="outlined"
+                  color="error"
+                  onClick={() => {
+                    if (window.confirm(t('Are you sure you want to clear the cart?'))) {
+                      clearCart();
+                    }
+                  }}
+                  disabled={isClearing || data.items.length === 0}
+                >
+                  {t('Clear Cart')}
+                </Button>
+              </TableCell>
+
+              <TableCell colSpan={2} align="right">
+                <Typography fontWeight={600}>
+                  {t('Cart Total')} : ${data.cartTotal}
+                </Typography>
               </TableCell>
             </TableRow>
           </TableBody>
         </Table>
       </TableContainer>
-
       <Box sx={{ display: 'flex', gap: 3, mt: 3 }}>
         <Button
           variant="contained"
