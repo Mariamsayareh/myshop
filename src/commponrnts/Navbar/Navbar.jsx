@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
+import { InputBase, Fade } from "@mui/material";
 import Toolbar from "@mui/material/Toolbar";
 import { Link } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
@@ -11,13 +12,15 @@ import Tooltip from "@mui/material/Tooltip";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
-
+import logo from "../../img/logo.webp"
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import PersonIcon from "@mui/icons-material/Person";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import NightlightIcon from '@mui/icons-material/Nightlight';
+import LightModeIcon from '@mui/icons-material/LightMode';
 
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -33,7 +36,7 @@ export default function Navbar() {
     const newLng = i18n.language === 'ar'?'en':'ar';
     i18n.changeLanguage(newLng);
   }
-
+  const [openSearch, setOpenSearch] = useState(false);
   const pages = [
     { label: t("Home"), path: "/" },
     {
@@ -70,7 +73,13 @@ export default function Navbar() {
   const {mode,toggleTheme}=useThemeStore();
 
   return (
-    <AppBar position="static">
+    <AppBar position="static"
+      elevation={0}
+      sx={{
+         bgcolor: "background.paper",
+          color: "text.primary",
+        
+      }}>
       <Container maxWidth="xl">
         <Toolbar
           disableGutters
@@ -83,7 +92,7 @@ export default function Navbar() {
         >
           {/* Mobile Menu */}
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
-            <IconButton color="inherit" onClick={(e) => setAnchorElNav(e.currentTarget)}>
+            <IconButton sx={{ color: "text.primary" }} onClick={(e) => setAnchorElNav(e.currentTarget)}>
               <MenuIcon />
             </IconButton>
             <Menu
@@ -97,7 +106,12 @@ export default function Navbar() {
                     component={RouterLink}
                     to={page.path}
                     underline="none"
-                    color="inherit"
+                    color='inherit'
+                    sx={{
+                            color: "text.primar",
+                            "&:hover": { 
+                                color: "#ce967e", transform: "scale(1.05)",textDecoration: "none"
+                            },transition: "0.3s" }}
                   >
                     {page.label}
                   </Link>
@@ -107,13 +121,16 @@ export default function Navbar() {
           </Box>
 
           {/* Logo */}
-          <Typography variant="h6" sx={{ fontWeight: 700 }}>
-            <Link component={RouterLink} to="/" underline="none" color="inherit">
-              JUBILEE
-            </Link>
-          </Typography>
+          <Link component={RouterLink} to="/">
+            <Box
+              component="img"
+              src={logo}
+              alt="logo"
+              sx={{m:1, height: 40 ,background:"#fff" ,p:1}}
+            />
+          </Link>
 
-          <Typography variant="h6" sx={{ fontWeight: 700 }}>
+          <Typography variant="h6" sx={{p:3, fontWeight: 700,fontSize:16 }}>
             {t("Welcome")} {user?.name}
           </Typography>
 
@@ -125,12 +142,17 @@ export default function Navbar() {
 
               if (!hasDropdown) {
                 return (
-                  <Button key={page.path} sx={{ color: "white" }}>
+                  <Button key={page.path} sx={{ color: "text.primary" }}>
                     <Link
                       component={RouterLink}
                       to={page.path}
                       underline="none"
-                      color="inherit"
+                      color='inherit'
+                      sx={{
+                            color: "text.primar",
+                            "&:hover": { 
+                                color: "#ce967e", transform: "scale(1.05)",textDecoration: "none"
+                            },transition: "0.3s" }}
                     >
                       {page.label}
                     </Link>
@@ -145,7 +167,12 @@ export default function Navbar() {
                     onMouseEnter={() => setDropdownOpen(page.path)}
                     onMouseLeave={() => setDropdownOpen(null)}
                   >
-                    <Button sx={{ color: "white" }}>
+                    <Button color='inherit'
+                    sx={{
+                            color: "text.primar",
+                            "&:hover": { 
+                                color: "#ce967e", transform: "scale(1.05)",textDecoration: "none"
+                            },transition: "0.3s" }}>
                       {page.label} <KeyboardArrowDownIcon />
                     </Button>
 
@@ -199,86 +226,129 @@ export default function Navbar() {
           </Box>
 
           {/* Right Icons */}
-          <Box>
-            <IconButton color="inherit">
-              <SearchIcon />
-            </IconButton>
+          <Box
+            sx={{
+              display: "flex",
+              flexWrap: "wrap",
+              width: { xs: 120, md: "auto" },
+            }}
+          >
+            <Box>
+      {/* Search Button */}
+      <IconButton onClick={() => setOpenSearch(true)}>
+        <SearchIcon />
+      </IconButton>
 
-            <Tooltip title="Account">
-              <IconButton color="inherit" onClick={(e) => setAnchorElUser(e.currentTarget)}>
-                <PersonIcon />
+      {/* Overlay */}
+      {openSearch && (
+        <Fade in={openSearch}>
+          <Box
+            sx={{
+              position: "fixed",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100vh",
+              bgcolor: "rgba(0,0,0,0.6)",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "flex-start",
+              pt: 10, 
+              zIndex: 1300 
+            }}
+            onClick={() => setOpenSearch(false)} 
+          >
+            <InputBase
+              autoFocus
+              placeholder="Search…"
+              sx={{
+                bgcolor: "white",
+                borderRadius: 1,
+                px: 2,
+                width: { xs: "80%", sm: "40%" },
+              }}
+              onClick={e => e.stopPropagation()} 
+            />
+          </Box>
+        </Fade>
+      )}
+    </Box>
+
+            {/* Account */}
+            <Box sx={{ width: { xs: "33.33%", md: "auto" }, textAlign: "center" }}>
+              <Tooltip title="Account">
+                <IconButton onClick={(e) => setAnchorElUser(e.currentTarget)}>
+                  <PersonIcon />
+                </IconButton>
+              </Tooltip>
+            </Box>
+
+            {/* Favorite */}
+            <Box sx={{ width: { xs: "33.33%", md: "auto" }, textAlign: "center" }}>
+              <IconButton>
+                <FavoriteBorderIcon />
               </IconButton>
-            </Tooltip>
+            </Box>
 
-            <IconButton color="inherit">
-              <FavoriteBorderIcon />
-            </IconButton>
-
+            {/* Cart */}
             {token && (
-              <IconButton color="inherit">
-                <Link component={RouterLink} to="/cart" underline="none" color="inherit">
+              <Box sx={{ width: { xs: "33.33%", md: "auto" }, textAlign: "center" }}>
+                <IconButton component={RouterLink} to="/cart">
                   <ShoppingCartIcon />
-                </Link>
-              </IconButton>
+                </IconButton>
+              </Box>
             )}
-            <Button color="inherit"
-             onClick={toggleLanguage}
-            >
-              {i18n.language === 'ar' ? 'EN' :'ع'}
-            </Button>
-            <Button color="inherit"
-             onClick={toggleTheme}
-            >
-              {mode === 'dark' ? t('Light') : t('Dark')}
-            </Button>
 
+            {/* Language */}
+            <Box sx={{ width: { xs: "33.33%", md: "auto" }, textAlign: "center" }}>
+              <Button onClick={toggleLanguage} sx={{ color: "text.primary" }}>
+                {i18n.language === "ar" ? "EN" : "ع"}
+              </Button>
+            </Box>
+
+            {/* Theme */}
+            <Box sx={{ width: { xs: "33.33%", md: "auto" }, textAlign: "center" }}>
+              <Button onClick={toggleTheme} sx={{ color: "text.primary" }}>
+                {mode === "dark" ? (
+                  <>
+                    {t("Light")} <LightModeIcon fontSize="small" />
+                  </>
+                ) : (
+                  <>
+                    {t("Dark")} <NightlightIcon fontSize="small" />
+                  </>
+                )}
+              </Button>
+            </Box>
+
+            {/* Menu */}
             <Menu
               anchorEl={anchorElUser}
               open={Boolean(anchorElUser)}
               onClose={() => setAnchorElUser(null)}
             >
-              {!token && (
+              {!token ? (
                 <>
-                  <MenuItem onClick={() => setAnchorElUser(null)}>
-                    <Link component={RouterLink} to="/log in" underline="none" color="inherit">
-                      {t("Log in")}
-                    </Link>
+                  <MenuItem component={RouterLink} to="/log in">
+                    {t("Log in")}
                   </MenuItem>
-                  <MenuItem onClick={() => setAnchorElUser(null)}>
-                    <Link component={RouterLink} to="/register" underline="none" color="inherit">
-                      {t("Register")}
-                    </Link>
+                  <MenuItem component={RouterLink} to="/register">
+                    {t("Register")}
+                  </MenuItem>
+                </>
+              ) : (
+                <>
+                  <MenuItem component={RouterLink} to="/profile">
+                    {t("Profile")}
+                  </MenuItem>
+                  <MenuItem onClick={handleLogout}>
+                    {t("Log out")}
                   </MenuItem>
                 </>
               )}
-
-              {token && (
-              <>
-              <MenuItem onClick={() => setAnchorElUser(null)}>
-                  <Link
-                    component={RouterLink}
-                    to="/profile"
-                    underline="none"
-                    color="inherit"
-                  >
-                    {t("Profile")}
-                  </Link>
-                </MenuItem>
-                <MenuItem onClick={handleLogout}>
-                  <Link
-                    component={RouterLink}
-                    to="/log in"
-                    underline="none"
-                    color="inherit"
-                  >
-                    {t("Log out")}
-                  </Link>
-                </MenuItem>
-              </>
-            )}
-
             </Menu>
           </Box>
+
         </Toolbar>
       </Container>
     </AppBar>

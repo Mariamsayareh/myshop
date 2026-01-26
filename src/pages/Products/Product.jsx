@@ -19,6 +19,7 @@ import UseProduct from '../../Hooks/useProduct';
 import UseAddToCart from '../../Hooks/useAddToCart';
 import useAddReview from '../../Hooks/useReviews';
 import { useTranslation } from "react-i18next";
+import CartDrawer from "../../commponrnts/CartDrawer/CartDrawer"; 
 
 const Product = () => {
   const { t } = useTranslation();
@@ -26,7 +27,13 @@ const Product = () => {
 
   const { data, isLoading, isError } = UseProduct(id);
   const { mutate: addToCart, isPending: isAddingToCart } = UseAddToCart();
+  const [openCart, setOpenCart] = useState(false);
 
+  const handleAddToCart = () => {
+    addToCart({ ProductId: product.id, Count: 1 }, {
+      onSuccess: () => setOpenCart(true)
+    });
+  };
   const {
     mutate: addReview,
     isPending: isAddingReview,
@@ -104,12 +111,14 @@ const Product = () => {
               variant="contained"
               sx={{ backgroundColor: "#ce967e" }}
               onClick={() =>
-                addToCart({ ProductId: product.id, Count: 1 })
+                handleAddToCart({ ProductId: product.id, Count: 1 })
               }
+              
               disabled={isAddingToCart}
             >
               {t('Add to Cart')}
             </Button>
+            <CartDrawer open={openCart} onClose={() => setOpenCart(false)} />
 
             <Button
               variant="outlined"

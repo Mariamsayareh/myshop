@@ -76,15 +76,17 @@ const Login = () => {
                             </Box>
                             <Typography component="p" variant="body" sx={{ color:"text.primary" , mb:2}}>
                             {t('This email address or password is invalid, you can')} <Link component={Links} to='/reset'  color='inherit'sx={{
+                            color: "text.primar",
                             "&:hover": { 
                                 color: "#ce967e", transform: "scale(1.05)",textDecoration: "none"
-                                },transition: "0.3s" }}>
+                            },transition: "0.3s" }}>
                             {t('reset your password')}
                             </Link>,
                             {t('or you can')} <Link component={Links} to='/register'  color='inherit' sx={{
+                            color: "text.primar",
                             "&:hover": { 
                                 color: "#ce967e", transform: "scale(1.05)",textDecoration: "none"
-                                },transition: "0.3s" }}>
+                            },transition: "0.3s" }}>
                                 {t('Create an now account')}
                             </Link>
                             
