@@ -32,47 +32,49 @@ import CloseIcon from "@mui/icons-material/Close";
 export default function Navbar() {
   const { t ,i18n} = useTranslation();
   const navigate = useNavigate();
+  const [openSearch, setOpenSearch] = useState(false);
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
+  const [dropdownOpen, setDropdownOpen] = useState(null);
+  const {mode,toggleTheme}=useThemeStore();
+  const [menuLevel, setMenuLevel] = useState("main"); 
+  const [activePage, setActivePage] = useState(null);
 
   const { token, user, logout } = useAuthStore((state) => state);
   const toggleLanguage =()=>{
     const newLng = i18n.language === 'ar'?'en':'ar';
     i18n.changeLanguage(newLng);
   }
-  const [openSearch, setOpenSearch] = useState(false);
   const pages = [
     { label: t("Home"), path: "/" },
     {
       label: t("Shop"),
       path: "/shop",
       megaMenu: [
-        { title: "col1", items: ["1", "2", "3"] },
-        { title: "col2", items: ["1", "2", "3"] },
-        { title: "col3", items: ["1", "2", "3"] },
+        { title: "Rings", items: ["Diamond Ring", "Rose Gold Ring", "Gold Ring", "Cocktail Ring"] },
+        { title: "Anklet", items: ["Ankle Bracelets", "Beaded Anklet", "Braided Anklet", "Charmed Ankle"] },
+        { title: "Earring", items: ["Dangles Earring", "Drops Earring", "Hoops Earring", "Mamuli Earring"] },
+        { title: "Bracelets", items: ["Antique Bangle", "Beaded Bracelets", "Charm Bracelet", "Tennis Bracelets"] },
       ],
     },
     {
       label: t("Collection"),
       path: "/collection",
-      options: ["1", "2", "3"],
+      options: ["Choker", "Butterfly Pendant", "Flower Necklace", "Princess Necklace"],
     },
     { label: t("Necklaces"), path: "/necklaces" },
     { label: t("Contact"), path: "/contact" },
     {
-      label: t("More"),
-      path: "/more",
-      options: [t("Blog")],
+      label: t("Blog"),
+      path: "/blog",
     },
   ];
-
-  const [anchorElNav, setAnchorElNav] = useState(null);
-  const [anchorElUser, setAnchorElUser] = useState(null);
-  const [dropdownOpen, setDropdownOpen] = useState(null);
 
   const handleLogout = () => {
     logout();
     navigate("/log in");
   };
-  const {mode,toggleTheme}=useThemeStore();
+
 
   return (
     <AppBar position="static"
@@ -94,9 +96,17 @@ export default function Navbar() {
         >
           {/* Mobile Menu */}
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
-            <IconButton sx={{ color: "text.primary" }} onClick={(e) => setAnchorElNav(e.currentTarget)}>
-              <MenuIcon />
-            </IconButton>
+            <IconButton
+                sx={{ display: { xs: "flex", md: "none" } }}
+                onClick={(e) => {
+                  setAnchorElNav(e.currentTarget);
+                  setMenuLevel("main");
+                  setActivePage(null);
+                }}
+              >
+                <MenuIcon />
+              </IconButton>
+
             <Menu
               anchorEl={anchorElNav}
               open={Boolean(anchorElNav)}
