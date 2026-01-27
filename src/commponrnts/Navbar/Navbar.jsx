@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
-import { InputBase, Fade } from "@mui/material";
+import { InputBase, Slide } from "@mui/material";
 import Toolbar from "@mui/material/Toolbar";
 import { Link } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
@@ -26,6 +26,8 @@ import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import useAuthStore from "../../stor/authStore";
 import useThemeStore from "../../stor/useThemeStore";
+import CloseIcon from "@mui/icons-material/Close";
+
 
 export default function Navbar() {
   const { t ,i18n} = useTranslation();
@@ -234,43 +236,73 @@ export default function Navbar() {
             }}
           >
             <Box>
-      {/* Search Button */}
+      {/* Search Icon */}
       <IconButton onClick={() => setOpenSearch(true)}>
         <SearchIcon />
       </IconButton>
 
-      {/* Overlay */}
+      {/* فتح نافذة السيرش */}
       {openSearch && (
-        <Fade in={openSearch}>
-          <Box
-            sx={{
-              position: "fixed",
-              top: 0,
-              left: 0,
-              width: "100%",
-              height: "100vh",
-              bgcolor: "rgba(0,0,0,0.6)",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "flex-start",
-              pt: 10, 
-              zIndex: 1300 
-            }}
-            onClick={() => setOpenSearch(false)} 
-          >
-            <InputBase
-              autoFocus
-              placeholder="Search…"
+        <Box
+          onClick={() => setOpenSearch(false)}
+          sx={{
+            position: "fixed",
+            inset: 0,
+            bgcolor: "rgba(0,0,0,0.6)",
+            zIndex: 1300
+          }}
+        >
+          <Slide direction="down" in={openSearch} mountOnEnter unmountOnExit>
+            <Box
+              onClick={(e) => e.stopPropagation()}
               sx={{
-                bgcolor: "white",
-                borderRadius: 1,
-                px: 2,
-                width: { xs: "80%", sm: "40%" },
+                bgcolor: "#fff",
+                height: 260,
+                px: { xs: 3, md: 10 },
+                pt: 6,
+                position: "relative"
               }}
-              onClick={e => e.stopPropagation()} 
-            />
-          </Box>
-        </Fade>
+            >
+              {/* Close */}
+              <IconButton
+                onClick={() => setOpenSearch(false)}
+                sx={{ position: "absolute", top: 20, right: 20 }}
+              >
+                <CloseIcon />
+              </IconButton>
+
+              {/* Title */}
+              <Typography
+                variant="h4"
+                fontWeight={600}
+                textAlign="center"
+                mb={4}
+              >
+                What are you looking for?
+              </Typography>
+
+              {/* Search Input */}
+              <Box
+                sx={{
+                  maxWidth: 700,
+                  mx: "auto",
+                  borderBottom: "1px solid #ddd",
+                  display: "flex",
+                  alignItems: "center"
+                }}
+              >
+                <InputBase
+                
+                  autoFocus
+                  placeholder="Search"
+                  fullWidth
+                  sx={{ py: 1.5, fontSize: 18 }}
+                />
+                <SearchIcon sx={{ color: "text.secondary" }} onClick={() => setOpenSearch(false)}/>
+              </Box>
+            </Box>
+          </Slide>
+        </Box>
       )}
     </Box>
 
