@@ -225,7 +225,7 @@ export default function Footer() {
  {/* ===================================== */}
       <Divider />
       <Container sx={{ py: 8 }}>
-        <Grid container spacing={6}>
+        <Grid display={'flex'} justifyContent={'space-between'} container spacing={6}>
            {/* face-insta-yout-x */}
           <Box  textAlign="center">
             <Button sx={{borderRadius:8 ,color: "#222222" ,backgroundColor: "#F5F0ED",
