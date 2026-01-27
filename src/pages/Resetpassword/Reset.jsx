@@ -8,6 +8,7 @@ import { ResetSchema } from "../../Validation/ReserSchema";
 import ErrorIcon from "@mui/icons-material/Error";
 import { useReset } from "../../Hooks/useReset.js";
 import { useTranslation } from "react-i18next";
+import HeroSec from "../../commponrnts/Hero/HeroSec.jsx";
 
 const Reset = () => {
    const { t, i18n } = useTranslation();
@@ -40,8 +41,10 @@ const Reset = () => {
   };
 
   return (
-    <Box sx={{ display: "flex", justifyContent: "center", mt: 5 }}>
-      <Card sx={{ width: 600, p: 3 }} variant="outlined">
+    <>
+    <HeroSec pageName={'Account'}/>
+    <Box sx={{ display: "flex", justifyContent: "center",mx:4  }}>
+      <Card sx={{ width: 600, p: 3 ,mt: 5}} variant="outlined">
         <CardContent>
           <Typography variant="h5" textAlign="center" mb={1} sx={{ fontWeight: "bold" }}>
             {t('Reset your password')}
@@ -105,6 +108,7 @@ const Reset = () => {
         </CardContent>
       </Card>
     </Box>
+    </>
   );
 };
 

@@ -8,7 +8,7 @@ import Register from "./pages/Register/Register.jsx";
 import Shop from "./pages/Shop/Shop.jsx";
 import Collection from "./pages/Collection/Collection.jsx";
 import Necklaces from "./pages/Necklaces/Necklaces.jsx";
-import More from "./pages/Blog/Blog.jsx";
+import Blog from "./pages/Blog/Blog.jsx";
 import Contact from "./pages/Contact/Contact.jsx";
 import Resetpassword from "./pages/Resetpassword/Reset.jsx";
 import NewPassword from "./pages/NewPassword/NewPassword.jsx";
@@ -67,7 +67,7 @@ const router = createBrowserRouter([
         },
         {
             path:'blog',
-            element:<More/>
+            element:<Blog/>
         },
         {
         path:'log in',

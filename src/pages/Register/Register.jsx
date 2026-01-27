@@ -9,6 +9,7 @@ import ErrorIcon from '@mui/icons-material/Error';
 import IconButton from '@mui/material/IconButton';
 import useRegister from "../../Hooks/useRegister.js";
 import { useTranslation } from "react-i18next";
+import HeroSec from "../../commponrnts/Hero/HeroSec.jsx";
 
 const Register = () => {
   const { t, i18n } = useTranslation();
@@ -35,7 +36,9 @@ const Register = () => {
   };
 
   return (
-    <Box sx={{ display: "flex", justifyContent: "center", mt: 5 }}>
+    <Box sx={{background:'#F5F0ED'}}>
+    <HeroSec pageName={'Create Account'}/>
+    <Box sx={{ display: "flex", justifyContent: "center", mt: 5 ,mx:4 ,}}>
       <Card sx={{ width: 600, p: 3 }} variant="outlined">
         <CardContent>
           <Typography variant="h4" textAlign="center" mb={3} sx={{fontWeight: "bold"}}>
@@ -103,6 +106,7 @@ const Register = () => {
           </Box>
         </CardContent>
       </Card>
+    </Box>
     </Box>
   );
 };

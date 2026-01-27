@@ -22,6 +22,7 @@ import {
 } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import useCheckout from '../../Hooks/useCheckout';
+import HeroSec from '../../commponrnts/Hero/HeroSec';
 
 const Checkout = () => {
   const { t } = useTranslation();
@@ -44,7 +45,8 @@ const Checkout = () => {
   if (isError) return <Typography>{t('error')}</Typography>;
 
   return (
-    <Box component="section" sx={{ py: 5 }}>
+    <Box component="section" sx={{ pb: 5 }}>
+      <HeroSec pageName="Checkout"/>
       <TableContainer>
         <Table>
           <TableHead>

@@ -10,6 +10,7 @@ import { useTranslation } from "react-i18next";
 
 
 import { useNewpass } from "../../Hooks/useNewpass.js";
+import HeroSec from "../../commponrnts/Hero/HeroSec.jsx";
 
 const NewPassword = () => {
   const { t, i18n } = useTranslation();
@@ -31,8 +32,10 @@ const NewPassword = () => {
   };
 
   return (
-    <Box sx={{ display: "flex", justifyContent: "center", mt: 5 }}>
-      <Card sx={{ width: 600, p: 3 }} variant="outlined">
+    <>
+    <HeroSec pageName={'Account'}/>
+    <Box sx={{ display: "flex", justifyContent: "center",mx:4  }}>
+      <Card sx={{ width: 600, p: 3 ,mt:5}} variant="outlined">
         <CardContent>
           <Typography variant="h4" textAlign="center" mb={3} sx={{ fontWeight: "bold" }}>
             {t('Create a New Password')}
@@ -107,6 +110,7 @@ const NewPassword = () => {
         </CardContent>
       </Card>
     </Box>
+    </>
   );
 };
 

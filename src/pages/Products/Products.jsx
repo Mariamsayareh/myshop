@@ -11,6 +11,7 @@ import { useTranslation } from "react-i18next";
 import ComponentPeoduct from './ComponentPeoduct';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import HeroSec from '../../commponrnts/Hero/HeroSec';
 
 const Products = () => {
   const { t } = useTranslation();
@@ -37,31 +38,52 @@ const Products = () => {
   if (isError) return <Typography>{t('error')}</Typography>;
 
   return (
-    <Box p={3}>
-      <Box component={'form'} display={'flex'} gap={3}
-      onSubmit={handleSubmit(applyFilters)}>
-        <TextField
-        label={t('Search products')}
-       {...register('search')}
-      />
-      <TextField
-        label={t('Category')}
-       {...register('categoryId')}
-      />
-      <TextField
-        label={t('Min Price')}
-       {...register('minPrice')}
-      />
-      <TextField
-        label={t('Max Price')}
-       {...register('maxPrice')}
-      />
-      <Button type='submit'>{t("Apply Filters")}</Button>
+    <>
+    <HeroSec pageName={'Products'}/>
+    <Box p={3} mt={5}>
+      <Box component="form" onSubmit={handleSubmit(applyFilters)} mb={5}>
+        <Grid container spacing={3}>
+          <Grid item xs={12} md={3} sx={{ width: { xs: "100%", md: "auto" } }}>
+            <TextField
+              fullWidth
+              label={t("Search products")}
+              {...register("search")}
+            />
+          </Grid>
+
+          <Grid item xs={12} md={3} sx={{ width: { xs: "100%", md: "auto" } }}>
+            <TextField
+              fullWidth
+              label={t("Category")}
+              {...register("categoryId")}
+            />
+          </Grid>
+
+          <Grid item xs={12} md={3} sx={{ width: { xs: "100%", md: "auto" } }}>
+            <TextField
+              fullWidth
+              label={t("Min Price")}
+              {...register("minPrice")}
+            />
+          </Grid>
+
+          <Grid item xs={12} md={3} sx={{ width: { xs: "100%", md: "auto" } }}>
+            <TextField
+              fullWidth
+              label={t("Max Price")}
+              {...register("maxPrice")}
+            />
+          </Grid>
+
+          <Grid item xs={12}>
+            <Button type="submit" variant="contained" py={8}>
+              {t("Apply Filters")}
+            </Button>
+          </Grid>
+        </Grid>
       </Box>
 
-      <Typography component="h2" variant="h4" textAlign="center" sx={{ mb: 4 }}>
-        {t('Products')}
-      </Typography>
+
       
 
       <Grid container spacing={2}>
@@ -70,6 +92,7 @@ const Products = () => {
         ))}
       </Grid>
     </Box>
+    </>
   );
 };
 

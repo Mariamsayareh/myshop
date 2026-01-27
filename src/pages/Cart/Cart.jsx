@@ -19,6 +19,7 @@ import useRemoveItmeCart from "../../Hooks/useRemoveItmeCart";
 import useUpdateCaet from "../../Hooks/useUpdateCaet";
 import useClearCart from "../../Hooks/useClearCart";
 import { useNavigate } from "react-router-dom";
+import HeroSec from "../../commponrnts/Hero/HeroSec";
 
 export default function Cart() {
   const navigate = useNavigate();
@@ -47,8 +48,9 @@ export default function Cart() {
   if (isError) return <Typography>{t('error')}</Typography>;
 
   return (
-    <Box component="section" sx={{ py: 5 }}>
-      <TableContainer>
+    <Box component="section" sx={{ pb: 5 }}>
+      <HeroSec pageName='Your Shopping Cart' />
+      <TableContainer sx={{ pt: 5 }}>
         <Table>
           <TableHead>
             <TableRow>

@@ -11,6 +11,7 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { useTranslation } from "react-i18next";
 
 import { useLogin } from '../../Hooks/useLogin.js';
+import HeroSec from '../../commponrnts/Hero/HeroSec.jsx';
 const Login = () => {
     const { t, i18n } = useTranslation();
     const location = useLocation();
@@ -48,7 +49,8 @@ const Login = () => {
     
       return (
             <>
-                <Box sx={{ display: "flex", justifyContent: "center", mt: 5 }}>
+                <HeroSec pageName={'Account'}/>
+                <Box sx={{ display: "flex", justifyContent: "center", mt: 5 ,mx:4}}>
                 <Card sx={{ width: 600, p: 3 }} variant="outlined">
                     <CardContent>
                     <Typography variant="h4" textAlign="center" mb={3} sx={{fontWeight: "bold"}}>
