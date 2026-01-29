@@ -26,12 +26,12 @@ const Section3Home = () => {
         >
           {/* Text */}
           <Box sx={{backgroundColor: "background.default"}}>
-            <Typography variant="caption" letterSpacing={1}>
-              DIAMOND RING
+            <Typography variant="caption" fontWeight={600} letterSpacing={1} textTransform={'uppercase'}>
+              Stylish necklace
             </Typography>
 
             <Typography fontSize={22} fontWeight={600} my={1}>
-              Yellow Gold & Diamond Ring
+              Women's Rose Gold Necklace
             </Typography>
 
             <Button
@@ -78,12 +78,12 @@ const Section3Home = () => {
         >
           {/* Text */}
           <Box>
-            <Typography variant="caption" letterSpacing={1}>
-              DIAMOND RING
+            <Typography variant="caption" fontWeight={600} letterSpacing={1} textTransform={'uppercase'}>
+              Best wedding ring
             </Typography>
 
             <Typography fontSize={22} fontWeight={600} my={1}>
-              Yellow Gold & Diamond Ring
+             Rose Gold Ring For Women
             </Typography>
 
             <Button
