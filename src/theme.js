@@ -5,11 +5,11 @@ const getTheme = (mode) => {
         palette: {
             mode,
             primary: {
-                main: mode === 'dark' ? '#098cb4' : '#1976d2',
+                main: mode === 'dark' ? '#CE967E' : '#be9583ff',
             },
             background: {
                 default: mode === 'dark' ? '#121212' : '#f5f5f5',
-                paper: mode === 'dark' ? '#1e1e1e' : '#ffffff'
+                paper: mode === 'dark' ? '#1e1e1e' : 'rgba(255,255,255,.9)'
             },
             text: {
                 primary: mode === 'dark' ? '#fff' : '#000',
