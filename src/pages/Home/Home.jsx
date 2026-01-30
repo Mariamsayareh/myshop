@@ -9,6 +9,7 @@ import Section4Home from '../../commponrnts/subSection/Section4Home';
 import Section5Home from '../../commponrnts/subSection/Section5Home';
 import Section7Home from '../../commponrnts/subSection/Section7Home';
 import Section6Home from '../../commponrnts/subSection/Section6Home';
+import Section8Home from '../../commponrnts/subSection/Section8Home';
 
 const Home = () => {
     return (
@@ -25,6 +26,7 @@ const Home = () => {
             <Section5Home/>
             <Section6Home/>
             <Section7Home/>
+            <Section8Home/>
         </>
     );
 }
