@@ -8,23 +8,46 @@ import Register from "./pages/Register/Register.jsx";
 import Shop from "./pages/Shop/Shop.jsx";
 import Collection from "./pages/Collection/Collection.jsx";
 import Necklaces from "./pages/Necklaces/Necklaces.jsx";
-import More from "./pages/More/More.jsx";
+import Blog from "./pages/Blog/Blog.jsx";
 import Contact from "./pages/Contact/Contact.jsx";
 import Resetpassword from "./pages/Resetpassword/Reset.jsx";
 import NewPassword from "./pages/NewPassword/NewPassword.jsx";
 import CartDrawer from "./commponrnts/CartDrawer/CartDrawer.jsx";
+import ProtectedRouter from "../protectedRouter.jsx";
+import Product from "./pages/Products/Product.jsx";
+import Products from "./pages/Products/Products.jsx";
+import Checkout from "./pages/Checkout/Checkout.jsx";
+import Profile from "./pages/Profile/Profile.jsx";
+import ProfileOrders from "./pages/Profile/ProfileOrders.jsx";
+import ProfileInfo from "./pages/Profile/ProfileInfo.jsx";
+import Categorie from "./commponrnts/Categories/Categorie.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
     element:<MainLayout/>,
     children:[
         {
-            path:'home',
+            index:true,
             element:<Home/>
         },
         {
-            path:'cart',
-            element:<Cart/>
+          path:'cart',
+            element:
+            <ProtectedRouter>
+              <Cart/>
+            </ProtectedRouter>
+        },
+        {
+          path:'checkout',
+            element:
+            
+              <Checkout/>
+        },
+        {
+          path:'products',
+            element:
+            
+              <Products/>
         },
         {
             path:'shop',
@@ -43,8 +66,8 @@ const router = createBrowserRouter([
             element:<Contact/>
         },
         {
-            path:'more',
-            element:<More/>
+            path:'blog',
+            element:<Blog/>
         },
         {
         path:'log in',
@@ -65,6 +88,31 @@ const router = createBrowserRouter([
         {
           path:'cart-drawer',
           element:<CartDrawer/>
+        },
+        {
+          path:'product/:id',
+          element:<Product/>
+        },
+        {
+          path:'CartDrawer',
+          element:<CartDrawer/>
+        },
+        {
+          path:'Products/category/:id',
+          element:<Categorie/>
+        },
+        {
+          path:'profile',
+          element:<Profile/>,
+          children:[
+            {
+              path:'orders',
+              element:<ProfileOrders/>,
+            },{
+              path:'info',
+              element:<ProfileInfo/>,
+            }
+          ]
         }
     ]
   },

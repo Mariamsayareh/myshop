@@ -1,147 +1,203 @@
-import  react ,{useContext ,useState } from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import { Link } from '@mui/material';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import ClickAwayListener from '@mui/material/ClickAwayListener';
-import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
-import PersonIcon from '@mui/icons-material/Person';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import { Link as Links } from 'react-router-dom';
-import { AuthContext } from '../../Context/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import { InputBase, Slide } from "@mui/material";
+import Toolbar from "@mui/material/Toolbar";
+import { Link } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import Button from "@mui/material/Button";
+import Tooltip from "@mui/material/Tooltip";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import ClickAwayListener from "@mui/material/ClickAwayListener";
+import logo from "../../img/logo.webp"
+import MenuIcon from "@mui/icons-material/Menu";
+import SearchIcon from "@mui/icons-material/Search";
+import PersonIcon from "@mui/icons-material/Person";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import NightlightIcon from '@mui/icons-material/Nightlight';
+import LightModeIcon from '@mui/icons-material/LightMode';
 
-const pages = [
-  { name: 'Home' },
-  {
-    name: 'Shop',
-    megaMenu: [
-      { title: 'col1', items: ['1', '2', '3'] },
-      { title: 'col2', items: ['1', '2', '3'] },
-      { title: 'col3', items: ['1', '2', '3'] },
-    ],
-  },
-  { name: 'Collection', options: ['1', '2', '3'] },
-  { name: 'Necklaces' },
-  { name: 'Contact' },
-  { name: 'More', options: ['Blog'] },
-];
+import { Link as RouterLink, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import useAuthStore from "../../stor/authStore";
+import useThemeStore from "../../stor/useThemeStore";
+import CloseIcon from "@mui/icons-material/Close";
+
 
 export default function Navbar() {
-  const { token , logout} = useContext(AuthContext);
-  const navigate=useNavigate('');
-  const handleLogout=()=>{
-    logout();
-    navigate('/log in');
-  }
+  const { t ,i18n} = useTranslation();
+  const navigate = useNavigate();
+  const [openSearch, setOpenSearch] = useState(false);
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [dropdownOpen, setDropdownOpen] = useState(null);
-  const [dropdownPinned, setDropdownPinned] =useState(null);
+  const {mode,toggleTheme}=useThemeStore();
+  const [menuLevel, setMenuLevel] = useState("main"); 
+  const [activePage, setActivePage] = useState(null);
 
-  const handleOpenNavMenu = (e) => setAnchorElNav(e.currentTarget);
-  const handleOpenUserMenu = (e) => setAnchorElUser(e.currentTarget);
-  const handleCloseNavMenu = () => setAnchorElNav(null);
-  const handleCloseUserMenu = () => setAnchorElUser(null);
+  const { token, user, logout } = useAuthStore((state) => state);
+  const toggleLanguage =()=>{
+    const newLng = i18n.language === 'ar'?'en':'ar';
+    i18n.changeLanguage(newLng);
+  }
+  const pages = [
+    { label: t("Home"), path: "/" },
+    {
+      label: t("Shop"),
+      path: "/shop",
+      megaMenu: [
+        { title: t("Rings"), items: [t("Diamond Ring"), t("Rose Gold Ring"), t("Gold Ring"), t("Cocktail Ring")] },
+        { title: t("Anklet"), items: [t("Ankle Bracelets"), t("Beaded Anklet"), t("Braided Anklet"), t("Charmed Ankle")] },
+        { title: t("Earring"), items: [t("Dangles Earring"), t("Drops Earring"), t("Hoops Earring"), t("Mamuli Earring")] },
+        { title: t("Bracelets"), items: [t("Antique Bangle"), t("Beaded Bracelets"), t("Charm Bracelet"), t("Tennis Bracelets")] },
+      ],
+    },
+    {
+      label: t("Collection"),
+      path: "/collection",
+      options: [t("Choker"), t("Butterfly Pendant"), t("Flower Necklace"), t("Princess Necklace")],
+    },
+    { label: t("Necklaces"), path: "/necklaces" },
+    { label: t("Contact"), path: "/contact" },
+    {
+      label: t("Blog"),
+      path: "/blog",
+    },
+  ];
+
+  const handleLogout = () => {
+    logout();
+    navigate("/log in");
+  };
+
 
   return (
-    <AppBar position="static">
+    <AppBar position="static"
+      elevation={0}
+      sx={{
+         bgcolor: "background.paper",
+          color: "text.primary",
+        
+      }}>
       <Container maxWidth="xl">
         <Toolbar
           disableGutters
           sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            padding: '25px',
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            padding: "25px",
           }}
         >
           {/* Mobile Menu */}
-          <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-            <IconButton color="inherit" onClick={handleOpenNavMenu}>
-              <MenuIcon />
-            </IconButton>
+          <Box sx={{ display: { xs: "flex", md: "none" } }}>
+            <IconButton
+                sx={{ display: { xs: "flex", md: "none" } }}
+                onClick={(e) => {
+                  setAnchorElNav(e.currentTarget);
+                  setMenuLevel("main");
+                  setActivePage(null);
+                }}
+              >
+                <MenuIcon />
+              </IconButton>
+
             <Menu
               anchorEl={anchorElNav}
               open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
+              onClose={() => setAnchorElNav(null)}
             >
               {pages.map((page) => (
-                <MenuItem key={page.name} onClick={handleCloseNavMenu}>
-                  {page.name}
+                <MenuItem key={page.path} onClick={() => setAnchorElNav(null)}>
+                  <Link
+                    component={RouterLink}
+                    to={page.path}
+                    underline="none"
+                    color='inherit'
+                    sx={{
+                            color: "text.primar",
+                            "&:hover": { 
+                                color: "#ce967e", transform: "scale(1.05)",textDecoration: "none"
+                            },transition: "0.3s" }}
+                  >
+                    {page.label}
+                  </Link>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
 
           {/* Logo */}
-          <Typography variant="h6" sx={{ fontWeight: 700 }}>
-            <Link component={Links} to="/home" underline="none" color="inherit">
-              JUBILEE
-            </Link>
+          <Link component={RouterLink} to="/">
+            <Box
+              component="img"
+              src={logo}
+              alt="logo"
+              sx={{m:1, height: 40 ,background:"#fff" ,p:1}}
+            />
+          </Link>
+
+          <Typography variant="h6" sx={{p:3, fontWeight: 700,fontSize:16 }}>
+            {t("Welcome")} {user?.name}
           </Typography>
 
           {/* Desktop Menu */}
-          <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 1 }}>
+          <Box sx={{ display: { xs: "none", md: "flex" }, gap: 1 }}>
             {pages.map((page) => {
-              const isMega = page.megaMenu?.length > 0;
-              const hasDropdown = page.options || isMega;
+              const isMega = Boolean(page.megaMenu);
+              const hasDropdown = Boolean(page.options || isMega);
 
               if (!hasDropdown) {
                 return (
-                  <Button key={page.name} sx={{ color: 'white' }}>
+                  <Button key={page.path} sx={{ color: "text.primary" }}>
                     <Link
-                      component={Links}
-                      to={`/${page.name.toLowerCase()}`}
+                      component={RouterLink}
+                      to={page.path}
                       underline="none"
-                      color="inherit"
+                      color='inherit'
+                      sx={{
+                            color: "text.primar",
+                            "&:hover": { 
+                                color: "#ce967e", transform: "scale(1.05)",textDecoration: "none"
+                            },transition: "0.3s" }}
                     >
-                      {page.name}
+                      {page.label}
                     </Link>
                   </Button>
                 );
               }
 
               return (
-                <ClickAwayListener
-                  key={page.name}
-                  onClickAway={() =>
-                    dropdownPinned !== page.name && setDropdownOpen(null)
-                  }
-                >
+                <ClickAwayListener key={page.path} onClickAway={() => setDropdownOpen(null)}>
                   <Box
-                    sx={{ position: 'relative' }}
-                    onMouseEnter={() =>
-                      !dropdownPinned && setDropdownOpen(page.name)
-                    }
-                    onMouseLeave={() =>
-                      !dropdownPinned && setDropdownOpen(null)
-                    }
+                    sx={{ position: "relative" }}
+                    onMouseEnter={() => setDropdownOpen(page.path)}
+                    onMouseLeave={() => setDropdownOpen(null)}
                   >
-                    <Button sx={{ color: 'white' }}>
-                      {page.name} <KeyboardArrowDownIcon />
+                    <Button color='inherit'
+                    sx={{
+                            color: "text.primar",
+                            "&:hover": { 
+                                color: "#ce967e", transform: "scale(1.05)",textDecoration: "none"
+                            },transition: "0.3s" }}>
+                      {page.label} <KeyboardArrowDownIcon />
                     </Button>
 
-                    {dropdownOpen === page.name && isMega && (
+                    {dropdownOpen === page.path && isMega && (
                       <Box
                         sx={{
-                          position: 'absolute',
-                          top: '40px',
-                          bgcolor: 'white',
-                          color: 'black',
+                          position: "absolute",
+                          top: "40px",
+                          bgcolor: "white",
+                          color: "black",
                           p: 2,
                           boxShadow: 3,
-                          display: 'grid',
+                          display: "grid",
                           gridTemplateColumns: `repeat(${page.megaMenu.length}, 1fr)`,
                           gap: 2,
                           zIndex: 20,
@@ -149,9 +205,7 @@ export default function Navbar() {
                       >
                         {page.megaMenu.map((col) => (
                           <Box key={col.title}>
-                            <Typography fontWeight={700}>
-                              {col.title}
-                            </Typography>
+                            <Typography fontWeight={700}>{col.title}</Typography>
                             {col.items.map((item) => (
                               <MenuItem key={item}>{item}</MenuItem>
                             ))}
@@ -160,13 +214,13 @@ export default function Navbar() {
                       </Box>
                     )}
 
-                    {dropdownOpen === page.name && page.options && !isMega && (
+                    {dropdownOpen === page.path && page.options && !isMega && (
                       <Box
                         sx={{
-                          position: 'absolute',
-                          top: '40px',
-                          bgcolor: 'white',
-                          color: 'black',
+                          position: "absolute",
+                          top: "40px",
+                          bgcolor: "white",
+                          color: "black",
                           p: 1,
                           boxShadow: 3,
                           zIndex: 20,
@@ -184,87 +238,159 @@ export default function Navbar() {
           </Box>
 
           {/* Right Icons */}
-          <Box>
-            <IconButton color="inherit">
-              <SearchIcon />
-            </IconButton>
+          <Box
+            sx={{
+              display: "flex",
+              flexWrap: "wrap",
+              width: { xs: 120, md: "auto" },
+            }}
+          >
+            <Box>
+      {/* Search Icon */}
+      <IconButton onClick={() => setOpenSearch(true)}>
+        <SearchIcon />
+      </IconButton>
 
-            <Tooltip title="Account">
-              <IconButton color="inherit" onClick={handleOpenUserMenu}>
-                <PersonIcon />
+      {/* فتح نافذة السيرش */}
+      {openSearch && (
+        <Box
+          onClick={() => setOpenSearch(false)}
+          sx={{
+            position: "fixed",
+            inset: 0,
+            bgcolor: "rgba(0,0,0,0.6)",
+            zIndex: 1300
+          }}
+        >
+          <Slide direction="down" in={openSearch} mountOnEnter unmountOnExit>
+            <Box
+              onClick={(e) => e.stopPropagation()}
+              sx={{
+                bgcolor: "#fff",
+                height: 260,
+                px: { xs: 3, md: 10 },
+                pt: 6,
+                position: "relative"
+              }}
+            >
+              {/* Close */}
+              <IconButton
+                onClick={() => setOpenSearch(false)}
+                sx={{ position: "absolute", top: 20, right: 20 }}
+              >
+                <CloseIcon />
               </IconButton>
-            </Tooltip>
 
-            <IconButton color="inherit">
-              <FavoriteBorderIcon />
-            </IconButton>
+              {/* Title */}
+              <Typography
+                variant="h4"
+                fontWeight={600}
+                textAlign="center"
+                mb={4}
+              >
+                What are you looking for?
+              </Typography>
 
+              {/* Search Input */}
+              <Box
+                sx={{
+                  maxWidth: 700,
+                  mx: "auto",
+                  borderBottom: "1px solid #ddd",
+                  display: "flex",
+                  alignItems: "center"
+                }}
+              >
+                <InputBase
+                
+                  autoFocus
+                  placeholder="Search"
+                  fullWidth
+                  sx={{ py: 1.5, fontSize: 18 }}
+                />
+                <SearchIcon sx={{ color: "text.secondary" }} onClick={() => setOpenSearch(false)}/>
+              </Box>
+            </Box>
+          </Slide>
+        </Box>
+      )}
+    </Box>
+
+            {/* Account */}
+            <Box sx={{ width: { xs: "33.33%", md: "auto" }, textAlign: "center" }}>
+              <Tooltip title="Account">
+                <IconButton onClick={(e) => setAnchorElUser(e.currentTarget)}>
+                  <PersonIcon />
+                </IconButton>
+              </Tooltip>
+            </Box>
+
+            {/* Favorite */}
+            <Box sx={{ width: { xs: "33.33%", md: "auto" }, textAlign: "center" }}>
+              <IconButton>
+                <FavoriteBorderIcon />
+              </IconButton>
+            </Box>
+
+            {/* Cart */}
             {token && (
-              <IconButton color="inherit">
-                <ShoppingCartIcon />
-              </IconButton>
+              <Box sx={{ width: { xs: "33.33%", md: "auto" }, textAlign: "center" }}>
+                <IconButton component={RouterLink} to="/cart">
+                  <ShoppingCartIcon />
+                </IconButton>
+              </Box>
             )}
 
+            {/* Language */}
+            <Box sx={{ width: { xs: "33.33%", md: "auto" }, textAlign: "center" }}>
+              <Button onClick={toggleLanguage} sx={{ color: "text.primary" }}>
+                {i18n.language === "ar" ? "EN" : "ع"}
+              </Button>
+            </Box>
+
+            {/* Theme */}
+            <Box sx={{ width: { xs: "33.33%", md: "auto" }, textAlign: "center" }}>
+              <Button onClick={toggleTheme} sx={{ color: "text.primary" }}>
+                {mode === "dark" ? (
+                  <>
+                    {t("Light")} <LightModeIcon fontSize="small" />
+                  </>
+                ) : (
+                  <>
+                    {t("Dark")} <NightlightIcon fontSize="small" />
+                  </>
+                )}
+              </Button>
+            </Box>
+
+            {/* Menu */}
             <Menu
               anchorEl={anchorElUser}
               open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
+              onClose={() => setAnchorElUser(null)}
             >
-              {!token && (
+              {!token ? (
                 <>
-                  <MenuItem onClick={handleCloseUserMenu}>
-                    <Link
-                      component={Links}
-                      to="/log in"
-                      underline="none"
-                      color="inherit"
-                    >
-                      Log in
-                    </Link>
+                  <MenuItem component={RouterLink} to="/log in">
+                    {t("Log in")}
                   </MenuItem>
-
-                  <MenuItem onClick={handleCloseUserMenu}>
-                    <Link
-                      component={Links}
-                      to="/register"
-                      underline="none"
-                      color="inherit"
-                    >
-                      Register
-                    </Link>
+                  <MenuItem component={RouterLink} to="/register">
+                    {t("Register")}
+                  </MenuItem>
+                </>
+              ) : (
+                <>
+                  <MenuItem component={RouterLink} to="/profile">
+                    {t("Profile")}
+                  </MenuItem>
+                  <MenuItem onClick={handleLogout}>
+                    {t("Log out")}
                   </MenuItem>
                 </>
               )}
-
-              {token && (
-                <MenuItem onClick={handleCloseUserMenu}>
-                  <Link
-                    component={Links}
-                    to="/log in"
-                    underline="none"
-                    color="inherit"
-                    onClick={handleLogout}
-                  >
-                    Log out
-                  </Link>
-                  
-                <Tooltip title="Account">
-                  <Link
-                    component={Links}
-                    to="/log in"
-                    underline="none"
-                    color="inherit"
-                  >
-                     <PersonIcon />
-                  </Link>
-                 
-                </Tooltip>
-
-
-                </MenuItem>
-              )}
             </Menu>
           </Box>
+
         </Toolbar>
       </Container>
     </AppBar>

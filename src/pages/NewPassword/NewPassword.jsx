@@ -6,12 +6,15 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { NewpasswordSchema } from "../../Validation/NewpasswordSchema.js";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import ErrorIcon from "@mui/icons-material/Error";
-import axiosInstance from "../../Api/axiosInstance.js";
+import { useTranslation } from "react-i18next";
+
+
 import { useNewpass } from "../../Hooks/useNewpass.js";
+import HeroSec from "../../commponrnts/Hero/HeroSec.jsx";
 
 const NewPassword = () => {
-  //const navigate = useNavigate();
-  //const [serverErrors, setServerErrors] = useState([]);
+  const { t, i18n } = useTranslation();
+  
   const [successMessage, setSuccessMessage] = useState("");
 
   const form = useForm({
@@ -25,36 +28,17 @@ const NewPassword = () => {
   const {  newpassMutation, serverErrors } = useNewpass();
 
   const newpassForm = async (values) => {
-     await newpassMutation.mutate(values);
-    // setServerErrors([]);
-    // try {
-    //   await axiosInstance.patch("/Auth/Account/ResetPassword",
-    //     values
-    //   );
-
-    //   navigate("/log in", {
-    //   state: {
-    //     message: "Change your password successfully.",
-    //   },
-    // });
-    // } catch (error) {
-    //   console.log("ERROR RESPONSE:", error.response);
-    //   setServerErrors(
-    //     error.response?.data?.title
-    //       ? Array.isArray(error.response.data.title)
-    //         ? error.response.data.title
-    //         : [error.response.data.title]
-    //       : ["Something went wrong. Please try again."]
-    //   );
-    // }
+      await newpassMutation.mutateAsync(values);
   };
 
   return (
-    <Box sx={{ display: "flex", justifyContent: "center", mt: 5 }}>
-      <Card sx={{ width: 600, p: 3 }} variant="outlined">
+    <>
+    <HeroSec pageName={'Account'}/>
+    <Box sx={{ display: "flex", justifyContent: "center",mx:4  }}>
+      <Card sx={{ width: 600, p: 3 ,mt:5}} variant="outlined">
         <CardContent>
           <Typography variant="h4" textAlign="center" mb={3} sx={{ fontWeight: "bold" }}>
-            Create a New Password
+            {t('Create a New Password')}
           </Typography>
 
           {/* Server errors */}
@@ -120,12 +104,13 @@ const NewPassword = () => {
               }}
               fullWidth
             >
-              Submit
+              {t('Submit')}
             </Button>
           </Box>
         </CardContent>
       </Card>
     </Box>
+    </>
   );
 };
 

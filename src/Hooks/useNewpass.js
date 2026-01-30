@@ -10,25 +10,28 @@ export const useNewpass = () => {
 
     const newpassMutation = useMutation({
         mutationFn: async(values) => {
-            await axiosInstance.patch("/Auth/Account/ResetPassword", values).then(res => res.data);
+            const res = await axiosInstance.patch("/auth/Account/ResetPassword", values);
+            return res.data;
 
         },
         onSuccess: (data) => {
-            setToken(data.accessToken);
-            setAccessToken(data.accessToken);
+            //console.log("accessToken");
+            //setToken(data.accessToken);
+            //console.log(data);
+            //setAccessToken(data.accessToken);
             navigate("/log in", {
                 state: {
                     message: "Change your password successfully.",
                 },
             });
+            //console.log("onSuccess2");
 
         },
         onError: (error) => {
-            console.log(error.response);
+            const msg = error.response.data.message;
+
             setServerErrors(
-                error.response.data.message ?
-                Array.isArray(error.response.data.message) ?
-                error.response.data.message : [error.response.data.message] : ["Something went wrong. Please try again."]
+                msg ? Array.isArray(msg) ? msg : [msg] : ["Invalid code or expired reset request"]
             );
         }
     });

@@ -1,146 +1,141 @@
 import {
   Box,
-  Container,
   Typography,
-  Grid,
   IconButton,
   Button,
-  Divider
+  TableContainer,
+  TableHead,
+  TableCell,
+  TableBody,
+  TableRow,
+  Table,
+  CircularProgress
 } from "@mui/material";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import ringImage from "../../img/ring_gold.avif";
-import { Link } from '@mui/material';
-import { Link as Links } from 'react-router-dom';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
+import { useTranslation } from "react-i18next";
+import useCart from "../../Hooks/useCart";
+import useRemoveItmeCart from "../../Hooks/useRemoveItmeCart";
+import useUpdateCaet from "../../Hooks/useUpdateCaet";
+import useClearCart from "../../Hooks/useClearCart";
+import { useNavigate } from "react-router-dom";
+import HeroSec from "../../commponrnts/Hero/HeroSec";
 
 export default function Cart() {
-  const cartItem = {
-    title: "The Tepo 18kt Diamond Yellow Gold Ring",
-    brand: "FLORIDA DIAMOND",
-    price: 250,
-    quantity: 2,
-    color: "gold",
-    image:ringImage
+  const navigate = useNavigate();
+  const { t } = useTranslation();
+
+  const { data, isLoading, isError } = useCart();
+  const { mutate: removeItem, isPending } = useRemoveItmeCart();
+  const { mutate: updateItem } = useUpdateCaet();
+  const { mutate: clearCart, isPending: isClearing } = useClearCart();
+
+  const handleUpdate = (productId, action) => {
+    const item = data.items.find(i => i.productId === productId);
+    if (!item) return;
+
+    const newCount = action === '-' ? item.count - 1 : item.count + 1;
+
+    if (newCount <= 0) {
+      removeItem(productId);
+      return;
+    }
+
+    updateItem({ productId, count: newCount });
   };
 
-  const total = cartItem.price * cartItem.quantity;
+  if (isLoading) return <CircularProgress />;
+  if (isError) return <Typography>{t('error')}</Typography>;
 
   return (
-    <Box>
-      {/* Hero */}
-      <Box
-        sx={{
-          height: 220,
-          backgroundImage:
-            "url(https://images.unsplash.com/photo-1605100804763-247f67b3557e)",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center"
-        }}
-      >
-        <Box textAlign="center">
-          <Typography variant="h4" fontWeight={600}>
-            Your Shopping Cart
-          </Typography>
-          <Link component={Links}
-                      to={`/home`}
-                      underline="none"
-                      color="inherit"
-                      variant="body2" mt={1}>
-            Home
-          </Link>
-        </Box>
+    <Box component="section" sx={{ pb: 5 }}>
+      <HeroSec pageName='Your Shopping Cart' />
+      <TableContainer sx={{ pt: 5 }}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>{t('Product name')}</TableCell>
+              <TableCell>{t('Price')}</TableCell>
+              <TableCell>{t('Quantity')}</TableCell>
+              <TableCell>{t('Total')}</TableCell>
+              <TableCell>{t('Action')}</TableCell>
+            </TableRow>
+          </TableHead>
+
+          <TableBody>
+            {data.items.map(item => (
+              <TableRow key={item.productId}>
+                <TableCell>{item.productName}</TableCell>
+                <TableCell>${item.price}</TableCell>
+
+                <TableCell sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+                  <IconButton onClick={() => handleUpdate(item.productId, '-')}>
+                    <RemoveIcon />
+                  </IconButton>
+
+                  <Typography>{item.count}</Typography>
+
+                  <IconButton onClick={() => handleUpdate(item.productId, '+')}>
+                    <AddIcon />
+                  </IconButton>
+                </TableCell>
+
+                <TableCell>${item.totalPrice}</TableCell>
+
+                <TableCell>
+                  <Button
+                    color="error"
+                    variant="contained"
+                    onClick={() => removeItem(item.productId)}
+                    disabled={isPending}
+                  >
+                    {t('REMOVE')}
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))}
+            <TableRow>
+              <TableCell colSpan={3}>
+                <Button
+                  variant="outlined"
+                  color="error"
+                  onClick={() => {
+                    if (window.confirm(t('Are you sure you want to clear the cart?'))) {
+                      clearCart();
+                    }
+                  }}
+                  disabled={isClearing || data.items.length === 0}
+                >
+                  {t('Clear Cart')}
+                </Button>
+              </TableCell>
+
+              <TableCell colSpan={2} align="right">
+                <Typography fontWeight={600}>
+                  {t('Cart Total')} : ${data.cartTotal}
+                </Typography>
+              </TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <Box sx={{ display: 'flex', gap: 3, mt: 3 }}>
+        <Button
+          variant="contained"
+          color="success"
+          onClick={() => navigate('/checkout')}
+        >
+          {t("Proceed to checkout")}
+        </Button>
+
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => navigate('/')}
+        >
+          {t("Continue Shopping")}
+        </Button>
       </Box>
-
-      {/* Cart Content */}
-      <Container sx={{ mt: 6 }}>
-        {/* Header */}
-        <Grid container pb={2}>
-          
-            <Typography fontWeight={600} width={490}>PRODUCT</Typography>
-          
-          
-            <Typography fontWeight={600} width={100} textAlign="center">QUANTITY</Typography>
-          
-            <Typography fontWeight={600} width={260} textAlign="right">TOTAL</Typography>
-          
-        </Grid>
-
-        <Divider />
-
-        {/* Item */}
-        <Grid container alignItems="center" py={4}>
-          <Grid item xs={6} display="flex" gap={2}>
-            <img
-              src={cartItem.image}
-              alt=""
-              width={90}
-              height={90}
-              style={{ objectFit: "cover" }}
-            />
-
-            <Box>
-              <Typography variant="caption" color="text.secondary">
-                {cartItem.brand}
-              </Typography>
-              <Typography fontWeight={600}>
-                {cartItem.title}
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                ${cartItem.price.toFixed(2)}
-              </Typography>
-              <Typography variant="body2">
-                Color: {cartItem.color}
-              </Typography>
-            </Box>
-          </Grid>
-
-          {/* Quantity */}
-          <Grid item xs={3} ps={5} textAlign="center" width={400}>
-            <Box display="flex" justifyContent="center" gap={1}>
-              <Button variant="outlined">-</Button>
-              <Typography mt={1}>{cartItem.quantity}</Typography>
-              <Button variant="outlined">+</Button>
-              <IconButton color="error">
-                <DeleteOutlineIcon />
-              </IconButton>
-            </Box>
-          </Grid>
-
-          {/* Total */}
-          <Grid item xs={3} textAlign="right">
-            <Typography fontWeight={600} color="primary">
-              ${total.toFixed(2)}
-            </Typography>
-          </Grid>
-        </Grid>
-
-        <Divider />
-
-        {/* Summary */}
-        <Box mt={6} textAlign="right">
-          <Typography fontWeight={600}>
-            Subtotal &nbsp;
-            <Typography component="span" fontWeight={700}>
-              ${total.toFixed(2)} USD
-            </Typography>
-          </Typography>
-
-          <Typography variant="body2" color="text.secondary" mt={1}>
-            Taxes and shipping calculated at checkout
-          </Typography>
-
-          <Box mt={3} display="flex" justifyContent="flex-end" gap={2}>
-            <Button variant="outlined">
-              Continue Shopping
-            </Button>
-            <Button variant="contained">
-              Checkout
-            </Button>
-          </Box>
-        </Box>
-      </Container>
     </Box>
   );
 }
