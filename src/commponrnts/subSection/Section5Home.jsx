@@ -9,52 +9,56 @@ import pers4 from "../../img/pers4.webp";
 
 import "swiper/css";
 import "swiper/css/pagination";
+import { useTranslation } from "react-i18next";
 
-const testimonials = [
+
+
+const Section5Home = () => {
+  const { t ,i18n} = useTranslation();
+  const testimonials = [
   {
-    title: "Reliable product, consistently delivers.",
+    title: t("Reliable product, consistently delivers."),
     desc:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-    name: "Stefanie Rashford",
-    role: "Founder",
+      t("Lorem Ipsum is simply dummy text of the printing and typesetting industry."),
+    name: t("Stefanie Rashford"),
+    role: t("Founder"),
     image: `${pers1}`
   },
   {
     title: "Excellent product, A+ customer service.",
     desc:
-      "Lorem Ipsum many variations of passages available but the have alteration.",
-    name: "Augusta Wind",
-    role: "Web Designer",
+      t("Lorem Ipsum many variations of passages available but the have alteration."),
+    name: t("Augusta Wind"),
+    role: t("Web Designer"),
     image: `${pers2}`
   },
   {
-    title: "Impressive quality, durable and reliable.",
+    title: t("Impressive quality, durable and reliable."),
     desc:
-      "There are many variations of passages of lorem ipsum more available.",
-    name: "Reema Ghurde",
-    role: "Manager",
+      t("There are many variations of passages of lorem ipsum more available."),
+    name: t("Reema Ghurde"),
+    role: t("Manager"),
     image: `${pers3}`
   },
   {
-    title: "Excellent product, worth every penny.",
+    title: t("Excellent product, worth every penny."),
     desc:
-      "Generation many variations of passages of even believable lorem Ipsum is simply.",
-    name: "Luies Charls",
-    role: "CEO",
+      t("Generation many variations of passages of even believable lorem Ipsum is simply."),
+    name: t("Luies Charls"),
+    role: t("CEO"),
     image: `${pers4}`
   }
 ];
-
-const Section5Home = () => {
+    
   return (
     <Box component="section" sx={{ py: 8, backgroundColor: "background.paper", }}>
       
       <Box textAlign="center" mb={6}>
         <Typography variant="h4" fontWeight={600}>
-          What Our Clients Say
+          {t("What Our Clients Say")}
         </Typography>
         <Typography color="text.secondary" mt={1}>
-          There are many variations of passages of lorem Ipsum available
+          {t("There are many variations of passages of lorem Ipsum available")}
         </Typography>
       </Box>
       <Swiper

@@ -1,11 +1,13 @@
 import { Box, Typography ,Button ,Grid} from '@mui/material';
 import braceletImg from "../../img/cms.webp";
 import ringImg from "../../img/cme1.webp";
+import { useTranslation } from "react-i18next";
 
 
 
 
 const Section3Home = () => {
+  const { t ,i18n} = useTranslation();
   return (
     <Grid
       container
@@ -27,11 +29,11 @@ const Section3Home = () => {
           {/* Text */}
           <Box sx={{backgroundColor: "background.default"}}>
             <Typography variant="caption" fontWeight={600} letterSpacing={1} textTransform={'uppercase'}>
-              Stylish necklace
+              {t("Stylish necklace")}
             </Typography>
 
             <Typography fontSize={22} fontWeight={600} my={1}>
-              Women's Rose Gold Necklace
+              {t("Women's Rose Gold Necklace")}
             </Typography>
 
             <Button
@@ -43,7 +45,7 @@ const Section3Home = () => {
                 color: "#fff",
               }}
             >
-              shop now
+              {t("shop now")}
             </Button>
           </Box>
 
@@ -79,11 +81,11 @@ const Section3Home = () => {
           {/* Text */}
           <Box>
             <Typography variant="caption" fontWeight={600} letterSpacing={1} textTransform={'uppercase'}>
-              Best wedding ring
+              {t("Best wedding ring")}
             </Typography>
 
             <Typography fontSize={22} fontWeight={600} my={1}>
-             Rose Gold Ring For Women
+             {t("Rose Gold Ring For Women")}
             </Typography>
 
             <Button
@@ -95,7 +97,7 @@ const Section3Home = () => {
                 color: "#fff",
               }}
             >
-              shop now
+              {t("shop now")}
             </Button>
           </Box>
 

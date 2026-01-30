@@ -1,7 +1,9 @@
 import { Box, Typography, Button, Container } from "@mui/material";
 import braceletImg from "../../img/diamond1.webp"; // غيري المسار حسب صورتك
+import { useTranslation } from "react-i18next";
 
 const Section6Home = () => {
+    const { t ,i18n} = useTranslation();
   return (
     <Box sx={{ backgroundColor: "background.paper"}}>
         <Box sx={{ py: 10 ,mx:8 ,borderRadius:2 ,backgroundColor: "background.default"}}>
@@ -21,7 +23,7 @@ const Section6Home = () => {
               variant="overline"
               sx={{ letterSpacing: 2, fontWeight: 500 }}
             >
-              DIAMOND BRACELETS
+              {t("DIAMOND BRACELETS")}
             </Typography>
 
             <Typography
@@ -32,8 +34,8 @@ const Section6Home = () => {
                 lineHeight: 1
               }}
             >
-              Rose Gold With Diamond <br />
-              Hotsell Bracelet
+              {t("Rose Gold With Diamond")} <br />
+              {t("Hotsell Bracelet")}
             </Typography>
 
             <Button
@@ -50,7 +52,7 @@ const Section6Home = () => {
                 }
               }}
             >
-              SHOP NOW
+              {t("SHOP NOW")}
             </Button>
           </Box>
 

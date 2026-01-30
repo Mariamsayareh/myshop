@@ -3,10 +3,12 @@ import { Link as RouterLink, useNavigate } from "react-router-dom";
 import ringImg from "../../img/sec2.webp";
 import braceletImg from "../../img/sec22.webp";
 import pendantImg from "../../img/sec23.webp";
+import { useTranslation } from "react-i18next";
 
 
 
 const SectionTwoHome = () => {
+  const { t ,i18n} = useTranslation();
 
     return (
     <Grid container spacing={8} sx={{p:6, backgroundColor: "background.paper",}}>
@@ -50,11 +52,11 @@ const SectionTwoHome = () => {
               }}
             >
               <Typography variant="caption" letterSpacing={1}>
-                DIAMOND RIN
+                {t("DIAMOND RIN")}
               </Typography>
 
               <Typography fontSize={22} fontWeight={600} my={1}>
-                Yellow Gold & Diamond Ring
+                {t("Yellow Gold & Diamond Ring")}
               </Typography>
 
               <Link
@@ -67,11 +69,11 @@ const SectionTwoHome = () => {
                   transition: ".3s",
                   "&:hover": {
                     color: "primary.main",
-                    textDecoration: "none", // يشيل الخط
+                    textDecoration: "none", 
                   },
                 }}
               >
-                SHOP NOW
+                {t("SHOP NOW")}
               </Link>
             </Box>
           </Box>
@@ -127,10 +129,10 @@ const SectionTwoHome = () => {
               }}
             >
               <Typography variant="caption" letterSpacing={1}>
-                DIAMOND BRACELETS
+                {t("DIAMOND BRACELETS")}
               </Typography>
               <Typography fontSize={22} fontWeight={600} my={1}>
-                Infinity Diamond Bracelet
+                {t("Infinity Diamond Bracelet")}
               </Typography>
               <Link
                 component={RouterLink}
@@ -145,7 +147,7 @@ const SectionTwoHome = () => {
                   },
                 }}
               >
-                SHOP NOW
+                {t("SHOP NOW")}
               </Link>
             </Box>
             </Box>
@@ -178,10 +180,10 @@ const SectionTwoHome = () => {
               }}
             >
               <Typography variant="caption" letterSpacing={1}>
-                DIAMOND PENDANT
+                {t("DIAMOND PENDANT")}
               </Typography>
               <Typography fontSize={22} fontWeight={600} my={1}>
-                Teardrop Diamond Pendant
+                {t("Teardrop Diamond Pendant")}
               </Typography>
 
               <Link
@@ -197,7 +199,7 @@ const SectionTwoHome = () => {
                   },
                 }}
               >
-                SHOP NOW
+                {t("SHOP NOW")}
               </Link>
             </Box>
                 {/* Image */}

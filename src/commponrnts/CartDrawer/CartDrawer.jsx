@@ -42,7 +42,7 @@ export default function CartDrawer({ open, onClose }) {
     <Drawer anchor="right" open={open} onClose={onClose}>
   <Box sx={{ width: 380, p: 3, display: "flex", flexDirection: "column", minHeight: "100%" }}>
     <Box display="flex" justifyContent="space-between" alignItems="center">
-      <Typography variant="h6" fontWeight={600}>Your Cart</Typography>
+      <Typography variant="h6" fontWeight={600}>{t("Your Cart")}</Typography>
       <IconButton onClick={onClose}><CloseIcon /></IconButton>
     </Box>
 
@@ -50,13 +50,13 @@ export default function CartDrawer({ open, onClose }) {
 
     {data.items.length === 0 ? (
       <Box sx={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", textAlign: "center" }}>
-        <Typography fontWeight={'500'} variant="h4" sx={{ mb: 2 }}>Your cart is empty</Typography>
+        <Typography fontWeight={'500'} variant="h4" sx={{ mb: 2 }}>{t("Your cart is empty")}</Typography>
         <Button
           variant="contained"
           sx={{ background: "#ce967e", "&:hover": { background: "#000", transform: "scale(1.05)" } }}
           onClick={() => navigate('/products')}
         >
-           continue shopping
+           {t("continue shopping")}
         </Button>
       </Box>
     ) : (
@@ -80,7 +80,7 @@ export default function CartDrawer({ open, onClose }) {
 
         <Divider sx={{ my: 2 }} />
 
-        <Typography fontWeight={600}>Subtotal: ${subtotal?.toFixed(2)}</Typography>
+        <Typography fontWeight={600}>{t("Subtotal")}: ${subtotal?.toFixed(2)}</Typography>
         <Typography component="p" variant="body" fontSize={'70%'} sx={{ color:"text.primary", mb:2 }}>
           {t('Taxes and')} 
           <Link component={Links} to='/products' color='inherit' sx={{
@@ -95,14 +95,14 @@ export default function CartDrawer({ open, onClose }) {
         <Box display={'flex'} gap={2}>
           <Button
             variant="contained"
-            sx={{ background:'#ce967e', "&:hover": { background:'#000', transform: "scale(1.05)" } }}
+            sx={{ background:'#ce967e',color:"#fff", "&:hover": { background:'#000', transform: "scale(1.05)" } }}
             onClick={() => navigate('/cart')}
           >
             {t("View CART")}
           </Button>
           <Button
             variant="contained"
-            sx={{ background:'#ce967e', "&:hover": { background:'#000', transform: "scale(1.05)" } }}
+            sx={{ background:'#ce967e', color:"#fff","&:hover": { background:'#000', transform: "scale(1.05)" } }}
             onClick={() => navigate('/checkout')}
           >
             {t("checkout")}

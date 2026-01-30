@@ -5,8 +5,10 @@ import {
   Link,
 } from "@mui/material";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
-import heroSec from '../../img/heroSec.webp'
+import heroSec from '../../img/heroSec.webp';
+import { useTranslation } from "react-i18next";
 const HeroSec = ({ pageName, children }) => {
+    const { t } = useTranslation();
     return (
         <Box sx={{
             height:220,
@@ -30,7 +32,7 @@ const HeroSec = ({ pageName, children }) => {
                                 color: "#ce967e", transform: "scale(1.05)",textDecoration: "none"
                             },transition: "0.3s" }}
                   >
-                   Home
+                   {t("Home")}
                   </Link>
                   <Box >
                     {children}

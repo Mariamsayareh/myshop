@@ -7,15 +7,15 @@ import services2 from "../../img/services2.webp";
 import services3 from "../../img/services3.webp";
 import services4 from "../../img/services4.webp";
 
-// Swiper styles
-import "swiper/css";
+
 import "swiper/css/free-mode";
 import "swiper/css/scrollbar";
+import { useTranslation } from "react-i18next";
 
-// Swiper modules
 import { FreeMode, Scrollbar, Mousewheel } from "swiper/modules";
 
 const SectionOneHome = () => {
+  const { t ,i18n} = useTranslation();
   return (
     <Box my={4} display={'flex'}>
       <Swiper
@@ -58,10 +58,10 @@ const SectionOneHome = () => {
 
             <Box>
               <Typography fontWeight={500} fontSize={15}>
-                Worldwide Shipping
+                {t("Worldwide Shipping")}
               </Typography>
               <Typography color="text.secondary" mt={1} fontSize={10}>
-                For all Orders Over $100
+                {t("For all Orders Over $100")}
               </Typography>
             </Box>
           </Box>
@@ -98,10 +98,10 @@ const SectionOneHome = () => {
 
             <Box>
               <Typography fontWeight={500} fontSize={15}>
-                Money Back Guarantee
+                {t("Money Back Guarantee")}
               </Typography>
               <Typography color="text.secondary" mt={1} fontSize={10}>
-                Guarantee Within 30 Days
+                {t("Guarantee Within 30 Days")}
               </Typography>
             </Box>
           </Box>
@@ -138,10 +138,10 @@ const SectionOneHome = () => {
 
             <Box>
               <Typography fontWeight={500} fontSize={15}>
-                Offers And Discounts
+                {t("Offers And Discounts")}
               </Typography>
               <Typography color="text.secondary" mt={1} fontSize={10}>
-                Back Returns In 7 Days
+                {t("Back Returns In 7 Days")}
               </Typography>
             </Box>
           </Box>
@@ -178,10 +178,10 @@ const SectionOneHome = () => {
 
             <Box>
               <Typography fontWeight={500} fontSize={15}>
-                24/7 Support Services
+                {t("24/7 Support Services")}
               </Typography>
               <Typography color="text.secondary" mt={1} fontSize={10}>
-                Contact us Anytime
+                {t("Contact us Anytime")}
               </Typography>
             </Box>
           </Box>

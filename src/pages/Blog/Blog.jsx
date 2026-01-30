@@ -9,8 +9,10 @@ import {
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import CardItem from "../Card/CardItem.jsx";
 import { cards } from "../Card/Cards.js";
+import { useTranslation } from "react-i18next";
 
 const Blog = () => {
+    const { t ,i18n} = useTranslation();
     return (
         <Box>
             <HeroSec pageName='Blog'>
@@ -24,8 +26,8 @@ const Blog = () => {
                             color: "#000",
                              }}
                   >
-                   / Blog
-                  </Link>   / Blog
+                   / {t("Blog")}
+                  </Link>   / {t("Blog")}
             </HeroSec>
             <Container my={4}>
                 <Grid container spacing={4} my={8}>

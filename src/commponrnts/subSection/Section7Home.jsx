@@ -11,17 +11,19 @@ import "swiper/css/pagination";
 
 import CardItem from "../../pages/Card/CardItem";
 import { cards } from "../../pages/Card/Cards";
+import { useTranslation } from "react-i18next";
 
 export default function Section7Home() {
+  const { t ,i18n} = useTranslation();
   return (
     <Box component="section" sx={{ py: 8, backgroundColor: "background.paper", }}>
       
       <Box textAlign="center" mb={6}>
         <Typography variant="h4" fontWeight={600}>
-          Our Latest Blog
+          {t("Our Latest Blog")}
         </Typography>
         <Typography color="text.secondary" mt={1}>
-          There are many variations of passages of lorem Ipsum available
+          {t("There are many variations of passages of lorem Ipsum available")}
         </Typography>
       </Box>
     <Swiper

@@ -1,7 +1,9 @@
 import { Box, Typography, Button,Link } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export default function CardItem({ card }) {
+  const { t ,i18n} = useTranslation();
   return (
     <Box
       sx={{
@@ -60,7 +62,7 @@ export default function CardItem({ card }) {
             "&:hover": { color: "#ce967e",  textDecoration: 'none' },
             cursor: 'pointer', transition: "0.3s"
           }}>
-            read more
+            {t("read more")}
           </Link>
           
           </Box>

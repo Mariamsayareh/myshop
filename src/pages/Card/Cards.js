@@ -33,7 +33,7 @@ export const cards = [{
         id: 4,
         date: "January 17, 2025",
         title: "Top Trending Jewelry Pieces of You Need to Own",
-        desc: "Welcome to the ultimate shopping event that you've been waiting for Our upcoming shopping sale with big discount.",
+        desc: "Welcome to the ultimate shopping event that you've been waiting for. Our upcoming shopping sale with big discount.",
         img: img4,
         link: "/blog/trending-jewelry",
     },

@@ -32,8 +32,10 @@ import {
   FaCcPaypal,
   FaCcDiscover
 } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 
 export default function Footer() {
+  const { t } = useTranslation();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
@@ -97,11 +99,11 @@ export default function Footer() {
           <Grid container>
             <Grid item xs={12} md={6}>
               <Typography variant="h4" fontWeight={600} pt={8} sx={{ color: "#000" }}>
-                Subscribe To Our Newsletter
+               {t("Subscribe To Our Newsletter")}
               </Typography>
 
               <Typography sx={{ color: "#333" }} mt={1}>
-                Subscribe to our latest newsletter to get news about special discounts and upcoming sales
+                {t("Subscribe to our latest newsletter to get news about special discounts and upcoming sales")}
               </Typography>
 
               <Box mt={4} display="flex" gap={2} mb={8}>
@@ -121,7 +123,7 @@ export default function Footer() {
                     color: "#fff" 
                   }}
                 >
-                  SUBSCRIBE
+                  {t("SUBSCRIBE")}
                 </Button>
               </Box>
             </Grid>
@@ -139,10 +141,10 @@ export default function Footer() {
             width: { xs: "100%", md: "250px" }
           }}>
             <Typography fontWeight={600} mb={2}>
-              About Our Store
+              {t("About Our Store")}
             </Typography>
             <Typography color="text.secondary" lineHeight={1.8}>
-              Welcome to our store, where we pride ourselves on providing exceptional products and unparalleled customer service.
+              {t("Welcome to our store, where we pride ourselves on providing exceptional products and unparalleled customer service.")}
             </Typography>
             <Box mt={2} display="flex" gap={1}>
               <Link component={RouterLink} to="#">
@@ -157,14 +159,14 @@ export default function Footer() {
           {/* Quick Links */}
           <Grid item xs={12} md={2} sx={{ width: { xs: "100%", md: "auto" } }}>
             <FooterSection
-              title="Quick Links"
+              title={t("Quick Links")}
               items={[
-                { label: "Contact Us", path: "/contact" },
-                { label: "Shipping", path: "/shipping" },
-                { label: "Sitemap", path: "/sitemap" },
-                { label: "FAQs", path: "/faqs" },
-                { label: "Size Chart", path: "/size-chart" },
-                { label: "About Us", path: "/about" },
+                { label: t("Contact Us"), path: "/contact" },
+                { label: t("Shipping"), path: "/shipping" },
+                { label: t("Sitemap"), path: "/sitemap" },
+                { label: t("FAQs"), path: "/faqs" },
+                { label: t("Size Chart"), path: "/size-chart" },
+                { label: t("About Us"), path: "/about" },
               ]}
             />
           </Grid>
@@ -175,14 +177,14 @@ export default function Footer() {
           {/* Services */}
          <Grid item xs={12} md={2} sx={{ width: { xs: "100%", md: "auto" } }}>
             <FooterSection
-              title="Services"
+              title={t("Services")}
               items={[
-                { label: "Privacy Policy", path: "/contact" },
-                { label: "Refund Policy", path: "/shipping" },
-                { label: "Shipping Policy", path: "/sitemap" },
-                { label: "Terms of Service", path: "/faqs" },
-                { label: "Policy for Buyers", path: "/size-chart" },
-                { label: "Policy for Sellers", path: "/about" },
+                { label: t("Privacy Policy"), path: "/contact" },
+                { label: t("Refund Policy"), path: "/shipping" },
+                { label: t("Shipping Policy"), path: "/sitemap" },
+                { label: t("Terms of Service"), path: "/faqs" },
+                { label: t("Policy for Buyers"), path: "/size-chart" },
+                { label: t("Policy for Sellers"), path: "/about" },
               ]}
             />
           </Grid>
@@ -190,14 +192,14 @@ export default function Footer() {
           {/* Account */}
           <Grid item xs={12} md={2} sx={{ width: { xs: "100%", md: "auto" } }}>
             <FooterSection
-              title="Your Account"
+              title={t("Your Account")}
               items={[
-                { label: "Search", path: "/search" },
-                { label: "Delivery Information", path: "/delivery-info" },
-                { label: "Locality", path: "/locality" },
-                { label: "Order Tracking", path: "/order-tracking" },
-                { label: "Terms and Conditions", path: "/terms" },
-                { label: "Shipping & Refund", path: "/shipping-refund" },
+                { label: t("Search"), path: "/search" },
+                { label: t("Delivery Information"), path: "/delivery-info" },
+                { label: t("Locality"), path: "/locality" },
+                { label: t("Order Tracking"), path: "/order-tracking" },
+                { label: t("Terms and Conditions"), path: "/terms" },
+                { label: t("Shipping & Refund"), path: "/shipping-refund" },
               ]}
             />
           </Grid>
@@ -205,7 +207,7 @@ export default function Footer() {
           {/* Contact */}
           <Grid item xs={12} md={2} sx={{ width: { xs: "100%", md: "auto" } }}>
             <FooterSection
-              title="Contact Us"
+              title={t("Contact Us")}
               items={[
                 { icon: <PlaceOutlinedIcon sx={{
                     color: "#CE967E"
