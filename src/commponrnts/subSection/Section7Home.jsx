@@ -1,3 +1,8 @@
+import {
+  Box,
+  Typography,
+  Divider,
+} from "@mui/material";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
@@ -9,6 +14,16 @@ import { cards } from "../../pages/Card/Cards";
 
 export default function Section7Home() {
   return (
+    <Box component="section" sx={{ py: 8, backgroundColor: "background.paper", }}>
+      
+      <Box textAlign="center" mb={6}>
+        <Typography variant="h4" fontWeight={600}>
+          Our Latest Blog
+        </Typography>
+        <Typography color="text.secondary" mt={1}>
+          There are many variations of passages of lorem Ipsum available
+        </Typography>
+      </Box>
     <Swiper
       spaceBetween={24}
       slidesPerView={3}
@@ -24,6 +39,7 @@ export default function Section7Home() {
         768: { slidesPerView: 2 },
         1200: { slidesPerView: 3 },
       }}
+      
     >
       {cards.map((card) => (
         <SwiperSlide  key={card.id}>
@@ -31,5 +47,8 @@ export default function Section7Home() {
         </SwiperSlide>
       ))}
     </Swiper>
+    
+    </Box>
+    
   );
 }
