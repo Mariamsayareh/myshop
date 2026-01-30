@@ -48,8 +48,31 @@ const Product = () => {
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
 
-  if (isLoading) return <CircularProgress />;
-  if (isError) return <Typography>{t('error')}</Typography>;
+  if (isLoading) {
+    return (
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          minHeight: '50vh',
+          gap: 2
+        }}
+      >
+        <CircularProgress />
+        <Typography variant="h6">{t("Loading Product...")}</Typography>
+      </Box>
+    );
+  }
+
+  if (isError) {
+    return (
+      <Typography color="error" textAlign="center">
+        {t("Failed to load Product")}
+      </Typography>
+    );}
+  
 
   const handleSubmitReview = () => {
     addReview(
