@@ -20,9 +20,14 @@ export default function CardItem({ card }) {
         src={card.img}
         alt={card.title}
         sx={{
+          cursor: "pointer",
           width: "100%",
           height: 230,
           objectFit: "cover",
+          transition: "transform .6s ease",
+                "&:hover": {
+                  transform: "scale(1.09)", 
+                },
         }}
       />
 
